@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Capgemini\\.NET Full Stack\\Day9\\EdgeDriverTest1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B1C3A037-C4B9-4FBF-BD57-0631B913AADB}|EdgeDriverTest1.csproj|d:\\capgemini\\.net full stack\\day9\\edgedrivertest1\\edgedrivertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B1C3A037-C4B9-4FBF-BD57-0631B913AADB}|EdgeDriverTest1.csproj|solutionrelative:edgedrivertest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EdgeDriverTest.cs",
+              "DocumentMoniker": "D:\\Capgemini\\.NET Full Stack\\Day9\\EdgeDriverTest1\\EdgeDriverTest.cs",
+              "RelativeDocumentMoniker": "EdgeDriverTest.cs",
+              "ToolTip": "D:\\Capgemini\\.NET Full Stack\\Day9\\EdgeDriverTest1\\EdgeDriverTest.cs",
+              "RelativeToolTip": "EdgeDriverTest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-27T06:50:23.542Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

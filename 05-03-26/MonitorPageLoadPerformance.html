@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Load Performance Monitor</title>
+</head>
+
+<body>
+
+<h2>Page Load Performance Monitoring</h2>
+<p>Check the console to see page load time.</p>
+
+<script>
+
+const logger = {
+log:function(level,message,data){
+
+console.log("Level:",level);
+console.log("Message:",message);
+console.log("Load Time:",data);
+
+}
+};
+
+const start = performance.now();
+
+window.onload = function(){
+
+const end = performance.now();
+
+const loadTime = end - start;
+
+logger.log("INFO","Page Load Time", loadTime + " ms");
+
+}
+
+</script>
+
+</body>
+</html>

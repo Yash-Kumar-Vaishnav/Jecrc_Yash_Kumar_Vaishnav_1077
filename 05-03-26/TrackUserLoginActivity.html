@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Track User Login Activity</title>
+</head>
+
+<body>
+
+<h2>User Login</h2>
+
+<input id="username" placeholder="Enter Username">
+
+<button onclick="login()">Login</button>
+
+<script>
+
+const logger = {
+log:function(level,message,data){
+
+console.log("Log Level:", level);
+console.log("Message:", message);
+console.log("Data:", data);
+
+fetch("https://example.com/log",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+level:level,
+message:message,
+data:data
+})
+}).catch(()=>console.log("Remote logging simulated"));
+
+}
+};
+
+function login(){
+
+const user = document.getElementById("username").value;
+
+logger.log("INFO","User Login Attempt",{username:user});
+
+alert("Login Attempt Logged");
+
+}
+
+</script>
+
+</body>
+</html>

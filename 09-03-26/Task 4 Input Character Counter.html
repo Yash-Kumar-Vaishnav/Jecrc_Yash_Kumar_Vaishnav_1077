@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Character Counter</title>
+</head>
+
+<body>
+
+<h3>Type your message</h3>
+
+<textarea id="message" rows="5" cols="40"></textarea>
+
+<p id="count">Characters: 0</p>
+
+<script>
+
+// Character counter using keyup event and Arrow Function
+document.getElementById("message").addEventListener("keyup", (e) => {
+
+    let length = e.target.value.length;
+
+    document.getElementById("count").innerText = "Characters: " + length;
+
+});
+
+</script>
+
+</body>
+</html>

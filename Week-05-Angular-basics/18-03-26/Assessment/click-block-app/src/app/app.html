@@ -1,0 +1,10 @@
+<h2>🚫 Click Block Directive</h2>
+
+<button (click)="allowClick = true">Enable Click</button>
+<button (click)="allowClick = false">Disable Click</button>
+
+<br><br>
+
+<button [appClickBlock]="allowClick">
+  Click Me
+</button>

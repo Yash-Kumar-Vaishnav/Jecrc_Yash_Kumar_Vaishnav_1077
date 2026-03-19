@@ -1,0 +1,9 @@
+<h2>💰 Price Highlight</h2>
+
+<div *ngFor="let p of products">
+
+  <p [appPrice]="p.price">
+    {{ p.name }} - ₹{{ p.price }}
+  </p>
+
+</div>

@@ -1,0 +1,56 @@
+<h1>🏥 Doctor Appointment System</h1>
+
+<!-- Patient Name -->
+<input placeholder="Patient Name" [(ngModel)]="patientName">
+
+<br><br>
+
+<!-- Doctor Dropdown -->
+<select [(ngModel)]="doctor">
+  <option value="">Select Doctor</option>
+  <option *ngFor="let d of doctors">{{ d }}</option>
+</select>
+
+<br><br>
+
+<!-- Date -->
+<input type="date" [(ngModel)]="date" [min]="today">
+
+<br><br>
+
+<!-- Consultation Type -->
+<select [(ngModel)]="consultationType" (change)="calculateFee()">
+  <option value="">Select Type</option>
+  <option>Online</option>
+  <option>Offline</option>
+</select>
+
+<br><br>
+
+<!-- Symptoms -->
+<textarea placeholder="Symptoms" [(ngModel)]="symptoms"></textarea>
+
+<br><br>
+
+<!-- Fee -->
+<p>Consultation Fee: ₹{{ fee }}</p>
+
+<!-- Summary -->
+<div *ngIf="patientName && doctor && date && consultationType">
+  <h3>📋 Appointment Summary</h3>
+  <p>Name: {{ patientName }}</p>
+  <p>Doctor: {{ doctor }}</p>
+  <p>Date: {{ date }}</p>
+  <p>Type: {{ consultationType }}</p>
+  <p>Symptoms: {{ symptoms }}</p>
+</div>
+
+<br>
+
+<!-- Button -->
+<button (click)="bookAppointment()">Confirm Appointment</button>
+
+<!-- Confirmation -->
+<p *ngIf="confirmed" style="color: green;">
+  ✅ Appointment Booked Successfully!
+</p>

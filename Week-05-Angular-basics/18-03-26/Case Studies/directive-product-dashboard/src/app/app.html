@@ -1,0 +1,37 @@
+<h1>🛒 {{ title() }}</h1>
+
+<button (click)="toggleProducts()">Toggle Products</button>
+
+<div *ngIf="showProducts">
+
+<div *ngFor="let p of products" appHighlight style="margin: 15px 0;">
+
+    <h3>{{ p.name }}</h3>
+    <p>Price: ₹{{ p.price }}</p>
+
+    <!-- Available -->
+    <p *ngIf="p.status === 'available'" style="color: green;">
+      ✔ In Stock
+    </p>
+
+    <!-- Out -->
+    <p *ngIf="p.status === 'out'" style="color: red;">
+      ❌ Out of Stock
+    </p>
+
+    <!-- Limited -->
+    <p *ngIf="p.status === 'limited'" style="color: orange;">
+      ⚠ Limited Stock
+    </p>
+
+    <!-- Status Text -->
+    <p [style.color]="
+        p.status === 'available' ? 'green' :
+        p.status === 'out' ? 'red' : 'orange'
+      ">
+      Status: {{ p.status }}
+    </p>
+
+  </div>
+
+</div>

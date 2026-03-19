@@ -1,0 +1,35 @@
+<h2>🔐 Role Selection</h2>
+
+<button (click)="role='admin'">Admin</button>
+<button (click)="role='user'">User</button>
+
+<hr>
+
+<h3>Selected Role: {{ role }}</h3>
+
+
+<div [appRole]="'admin'" [userRole]="role">
+
+  <h2>🛠 Admin Dashboard</h2>
+
+  <p>Welcome Admin!</p>
+
+  <h3>Employees List</h3>
+
+  <ul>
+    <li *ngFor="let emp of employees">
+      {{ emp.name }} - ₹{{ emp.salary }}
+    </li>
+  </ul>
+
+</div>
+
+<div [appRole]="'user'" [userRole]="role">
+
+  <h2>👤 User Dashboard</h2>
+
+  <p>Welcome User!</p>
+
+  <p>You can view your profile and basic details.</p>
+
+</div>

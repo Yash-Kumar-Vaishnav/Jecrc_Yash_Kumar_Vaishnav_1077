@@ -1,0 +1,11 @@
+<h2>🎨 Theme Switcher</h2>
+
+<button (click)="theme='light'">Light Mode</button>
+<button (click)="theme='dark'">Dark Mode</button>
+
+<br><br>
+
+<div [appTheme]="theme" style="padding: 20px;">
+  <h3>Welcome to Dashboard</h3>
+  <p>This content changes based on theme.</p>
+</div>

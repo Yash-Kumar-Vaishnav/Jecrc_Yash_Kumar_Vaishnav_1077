@@ -1,0 +1,9 @@
+<h2>🎓 Student Status</h2>
+
+<div *ngFor="let s of students">
+
+  <p [appStatusColor]="s.marks">
+    {{ s.name }} - {{ s.marks }}
+  </p>
+
+</div>

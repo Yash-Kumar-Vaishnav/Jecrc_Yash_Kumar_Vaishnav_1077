@@ -1,0 +1,36 @@
+<h2>Hospital Appointment Booking</h2>
+
+<!-- Form -->
+<input name="patientName" placeholder="Patient Name" [(ngModel)]="patientName">
+
+<select name="doctor" [(ngModel)]="doctor">
+  <option value="">Select Doctor</option>
+  <option>Dr. Sharma</option>
+  <option>Dr. Mehta</option>
+  <option>Dr. Khan</option>
+</select>
+
+<input name="date" type="date" [(ngModel)]="date" [min]="today">
+
+<select name="type" [(ngModel)]="consultationType" (change)="calculateFee()">
+  <option value="">Consultation Type</option>
+  <option>Online</option>
+  <option>Offline</option>
+</select>
+
+<textarea name="symptoms" placeholder="Symptoms" [(ngModel)]="symptoms"></textarea>
+
+<button (click)="bookAppointment()">Book Appointment</button>
+
+<p>{{message}}</p>
+
+<hr>
+
+<!-- Live Summary -->
+<h3>Appointment Summary</h3>
+<p>Name: {{patientName}}</p>
+<p>Doctor: {{doctor}}</p>
+<p>Date: {{date}}</p>
+<p>Type: {{consultationType}}</p>
+<p>Symptoms: {{symptoms}}</p>
+<p>Fee: ₹{{fee}}</p>

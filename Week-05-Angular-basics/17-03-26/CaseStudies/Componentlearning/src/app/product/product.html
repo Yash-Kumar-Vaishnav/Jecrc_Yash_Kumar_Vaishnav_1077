@@ -1,0 +1,11 @@
+<h2>Product List</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+  </tr>
+  <tr *ngFor="let p of products">
+    <td>{{ p.name }}</td>
+    <td>{{ p.price }}</td>
+  </tr>
+</table>

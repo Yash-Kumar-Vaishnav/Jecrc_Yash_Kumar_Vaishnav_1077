@@ -1,0 +1,22 @@
+<h2 class="heading">Cart</h2>
+
+<div *ngFor="let item of cartItems" class="cart-card">
+  <div class="top">
+    <h3>{{item.name}}</h3>
+    <button class="remove" (click)="removeEvent.emit(item.id)">✕</button>
+  </div>
+
+  <div class="controls">
+    <button (click)="dec.emit(item)">-</button>
+    <span>{{item.quantity}}</span>
+    <button (click)="inc.emit(item)">+</button>
+  </div>
+
+  <p class="price">₹{{item.price * item.quantity}}</p>
+</div>
+
+<div class="total-box">
+  Total: ₹{{getTotal()}}
+</div>
+
+<button class="clear-btn" (click)="clearEvent.emit()">Clear Cart</button>

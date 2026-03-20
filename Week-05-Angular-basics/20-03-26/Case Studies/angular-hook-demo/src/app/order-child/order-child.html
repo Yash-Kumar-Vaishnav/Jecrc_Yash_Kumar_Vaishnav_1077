@@ -1,0 +1,22 @@
+<div class="child-card">
+
+  <h3>📦 Child Component</h3>
+
+  <!-- Order Details -->
+  <p><strong>ID:</strong> {{ order.id }}</p>
+  <p><strong>Product:</strong> {{ order.productName }}</p>
+  <p><strong>Price:</strong> ₹{{ order.price }}</p>
+  <p><strong>Status:</strong> {{ order.status }}</p>
+
+  <hr>
+
+  <!-- Lifecycle Logs -->
+  <h4>⚡ Lifecycle Logs (Live UI)</h4>
+
+  <ul>
+    <li *ngFor="let log of logs">
+      {{ log }}
+    </li>
+  </ul>
+
+</div>

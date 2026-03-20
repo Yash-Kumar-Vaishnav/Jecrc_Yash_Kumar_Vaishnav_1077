@@ -1,0 +1,23 @@
+<h1 class="title">Smart E-Commerce</h1>
+
+<div class="container">
+
+  <div class="section">
+    <app-product (addEvent)="addToCart($event)"></app-product>
+  </div>
+
+  <div class="section">
+    <app-cart 
+      [cartItems]="cartItems"
+      (inc)="increase($event)"
+      (dec)="decrease($event)"
+      (removeEvent)="remove($event)"
+      (clearEvent)="clearCart()">
+    </app-cart>
+  </div>
+
+  <div class="section">
+    <app-checkout></app-checkout>
+  </div>
+
+</div>

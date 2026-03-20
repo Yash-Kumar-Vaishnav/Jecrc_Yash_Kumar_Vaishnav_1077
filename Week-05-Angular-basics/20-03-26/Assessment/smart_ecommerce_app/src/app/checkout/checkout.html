@@ -1,0 +1,54 @@
+<h2 class="heading">Checkout</h2>
+
+<form (ngSubmit)="placeOrder()">
+<input [(ngModel)]="user.name" name="name" placeholder="Full Name">
+
+<input [(ngModel)]="user.email" name="email" type="email" placeholder="Email">
+
+<input [(ngModel)]="user.phone" name="phone" type="number" placeholder="Phone">
+
+<input [(ngModel)]="user.zip" name="zip" type="number" placeholder="ZIP Code">
+
+<textarea [(ngModel)]="user.instructions" name="inst" placeholder="Instructions"></textarea>
+
+<h3>Gender</h3>
+<label><input type="radio" [(ngModel)]="user.gender" name="gender" value="Male"> Male</label>
+<label><input type="radio" [(ngModel)]="user.gender" name="gender" value="Female"> Female</label>
+
+<h3>Options</h3>
+<label><input type="checkbox" [(ngModel)]="user.terms" name="terms"> Accept Terms</label>
+<label><input type="checkbox" [(ngModel)]="user.subscribe" name="sub"> Subscribe</label>
+
+<h3>Location</h3>
+<select [(ngModel)]="user.city" name="city">
+  <option>Jaipur</option>
+  <option>Delhi</option>
+</select>
+
+<input type="date" [(ngModel)]="user.date" name="date">
+
+<input type="file">
+
+<h3>Payment</h3>
+
+<label><input type="radio" [(ngModel)]="user.payment" name="pay" value="card" (change)="paymentChange()"> Card</label>
+<label><input type="radio" [(ngModel)]="user.payment" name="pay" value="upi" (change)="paymentChange()"> UPI</label>
+<label><input type="radio" [(ngModel)]="user.payment" name="pay" value="cod"> COD</label>
+
+<div *ngIf="showCard">
+  <input placeholder="Card Number">
+  <input placeholder="Expiry Date">
+  <input placeholder="CVV">
+</div>
+
+<div *ngIf="showUpi">
+  <input placeholder="UPI ID">
+</div>
+
+<button type="submit" class="submit">Place Order</button>
+
+</form>
+
+<h3 *ngIf="orderPlaced" style="color: green;">
+  ✅ Order Placed Successfully!
+</h3>

@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   template: `
     <h1>Welcome</h1>
-    <p>This is Home Component</p>
-  `
+    <p>This is Home Component</p>`
 })
 export class HomeComponent {}

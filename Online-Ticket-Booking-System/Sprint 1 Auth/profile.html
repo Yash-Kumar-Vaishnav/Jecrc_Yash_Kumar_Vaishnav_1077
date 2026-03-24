@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile | TicketNow</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      background: #0f1b2d;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: #378ADD; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .nav-links a.active { color: #378ADD; font-weight: 600; }
+
+    .nav-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #378ADD;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    /* ── Page Layout ── */
+    .page {
+      max-width: 900px;
+      margin: 32px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 24px;
+    }
+
+    /* ── Left Sidebar ── */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Profile summary card */
+    .profile-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    /* Avatar circle with initials */
+    .avatar-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .avatar-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #378ADD, #185FA5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 auto;
+    }
+
+    /* Camera icon overlay */
+    .avatar-edit {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 24px;
+      height: 24px;
+      background: #378ADD;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+      border: 2px solid #fff;
+    }
+
+    .profile-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1b2d;
+      margin-bottom: 4px;
+    }
+
+    .profile-email {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    /* Member since badge */
+    .member-badge {
+      display: inline-block;
+      background: #eef6ff;
+      color: #185FA5;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* ── Sidebar Nav ── */
+    .sidebar-nav {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #555;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background: #f0f4f8;
+      color: #0f1b2d;
+    }
+
+    .nav-item.active {
+      background: #eef6ff;
+      color: #185FA5;
+      font-weight: 600;
+    }
+
+    .nav-item.danger {
+      color: #e74c3c;
+    }
+
+    .nav-item.danger:hover {
+      background: #fff0f0;
+    }
+
+    .nav-icon { font-size: 16px; }
+
+    .nav-divider {
+      height: 1px;
+      background: #f0f0f0;
+      margin: 6px 0;
+    }
+
+    /* ── Main Content ── */
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .section-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .section-header h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f1b2d;
+    }
+
+    .section-header p {
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    /* Edit / Save toggle button */
+    .edit-btn {
+      padding: 7px 18px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1.5px solid #378ADD;
+      color: #378ADD;
+      background: transparent;
+    }
+
+    .edit-btn:hover {
+      background: #378ADD;
+      color: #fff;
+    }
+
+    .edit-btn.saving {
+      background: #27ae60;
+      border-color: #27ae60;
+      color: #fff;
+    }
+
+    /* ── Form Fields ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .field input,
+    .field select {
+      padding: 10px 14px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Segoe UI', sans-serif;
+      color: #0f1b2d;
+      background: #f8fafc;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    /* Read-only state — slightly different look */
+    .field input:read-only,
+    .field input:disabled {
+      background: #f8fafc;
+      color: #666;
+      cursor: default;
+      border-color: #ececec;
+    }
+
+    .field input:not(:read-only):focus,
+    .field select:focus {
+      border-color: #378ADD;
+      background: #fff;
+    }
+
+    .field input.error {
+      border-color: #e74c3c;
+      background: #fff8f8;
+    }
+
+    .err-msg {
+      font-size: 11px;
+      color: #e74c3c;
+      display: none;
+    }
+
+    .err-msg.show { display: block; }
+
+    /* ── Stats Row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat-box {
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 26px;
+      font-weight: 700;
+      color: #378ADD;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    /* ── Notification Toggles ── */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .toggle-row:last-child { border-bottom: none; }
+
+    .toggle-label strong {
+      display: block;
+      font-size: 13px;
+      color: #0f1b2d;
+    }
+
+    .toggle-label span {
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    /* CSS toggle switch */
+    .toggle-switch {
+      position: relative;
+      width: 42px;
+      height: 22px;
+    }
+
+    .toggle-switch input {
+      display: none;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: #ddd;
+      border-radius: 22px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.3s;
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background: #378ADD;
+    }
+
+    .toggle-switch input:checked + .toggle-slider::before {
+      transform: translateX(20px);
+    }
+
+    /* ── Danger Zone ── */
+    .danger-zone {
+      border: 1px solid #fde8e8;
+      border-radius: 14px;
+      padding: 20px 28px;
+      background: #fff;
+    }
+
+    .danger-zone h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #e74c3c;
+      margin-bottom: 8px;
+    }
+
+    .danger-zone p {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 14px;
+    }
+
+    .logout-btn {
+      padding: 9px 20px;
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-right: 10px;
+    }
+
+    .logout-btn:hover { background: #c0392b; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #27ae60;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: transform 0.4s ease;
+      z-index: 999;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── Logout Modal Overlay ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      display: none;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 14px;
+      padding: 32px 28px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .modal-icon { font-size: 40px; margin-bottom: 12px; }
+
+    .modal h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f1b2d;
+      margin-bottom: 8px;
+    }
+
+    .modal p {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .modal-btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .modal-cancel {
+      padding: 10px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .modal-confirm {
+      padding: 10px;
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+    }
+
+    @media (max-width: 680px) {
+      .page { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a class="nav-brand" href="dashboard.html">Ticket<span>Now</span></a>
+    <div class="nav-links">
+      <a href="dashboard.html">Home</a>
+      <a href="#">My Bookings</a>
+      <a href="profile.html" class="active">Profile</a>
+      <div class="nav-avatar" id="navAvatar">?</div>
+    </div>
+  </nav>
+
+  <!-- ── MAIN PAGE ── -->
+  <div class="page">
+
+    <!-- ── SIDEBAR ── -->
+    <div class="sidebar">
+
+      <!-- Profile Summary Card -->
+      <div class="profile-card">
+        <div class="avatar-wrap">
+          <div class="avatar-circle" id="avatarCircle">?</div>
+          <div class="avatar-edit" title="Change photo">📷</div>
+        </div>
+        <div class="profile-name" id="sidebarName">Loading...</div>
+        <div class="profile-email" id="sidebarEmail">loading@email.com</div>
+        <div class="member-badge">⭐ Member since 2025</div>
+      </div>
+
+      <!-- Sidebar Navigation -->
+      <div class="sidebar-nav">
+        <a class="nav-item active" href="profile.html">
+          <span class="nav-icon">👤</span> Edit Profile
+        </a>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">🎟️</span> My Bookings
+        </a>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">❤️</span> Wishlist
+        </a>
+        <a class="nav-item" href="#">
+          <span class="nav-icon">🔔</span> Notifications
+        </a>
+        <div class="nav-divider"></div>
+        <a class="nav-item danger" href="#" onclick="showLogoutModal()">
+          <span class="nav-icon">🚪</span> Logout
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ── MAIN CONTENT ── -->
+    <div class="main">
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Total Bookings</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Events Attended</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Reviews Given</div>
+        </div>
+      </div>
+
+      <!-- Personal Info Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <div>
+            <h3>Personal Information</h3>
+            <p>Update your name, phone and other details</p>
+          </div>
+          <button class="edit-btn" id="editBtn" onclick="toggleEdit()">
+            ✏️ Edit
+          </button>
+        </div>
+
+        <div class="form-grid">
+
+          <div class="field">
+            <label>First Name</label>
+            <input type="text" id="firstName" readonly />
+            <div class="err-msg" id="firstName-err">First name is required</div>
+          </div>
+
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" id="lastName" readonly />
+            <div class="err-msg" id="lastName-err">Last name is required</div>
+          </div>
+
+          <div class="field">
+            <label>Email Address</label>
+            <!-- Email never editable — always readonly -->
+            <input type="email" id="email" readonly
+                   title="Email cannot be changed" />
+          </div>
+
+          <div class="field">
+            <label>Phone Number</label>
+            <input type="tel" id="phone" readonly maxlength="10"
+                   placeholder="Enter phone number" />
+            <div class="err-msg" id="phone-err">Enter a valid 10-digit number</div>
+          </div>
+
+          <div class="field">
+            <label>City</label>
+            <input type="text" id="city" readonly placeholder="e.g. Jaipur" />
+          </div>
+
+          <div class="field">
+            <label>Gender</label>
+            <select id="gender" disabled>
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+              <option value="prefer_not">Prefer not to say</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label>Bio</label>
+            <input type="text" id="bio" readonly
+                   placeholder="Tell us a little about yourself..." />
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Notification Preferences -->
+      <div class="section-card">
+        <div class="section-header">
+          <div>
+            <h3>Notification Preferences</h3>
+            <p>Choose how you want to be notified</p>
+          </div>
+        </div>
+
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <strong>Email Notifications</strong>
+            <span>Booking confirmations and reminders</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="emailNotif" checked
+                   onchange="savePreference('emailNotif', this.checked)" />
+            <div class="toggle-slider"></div>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <strong>Event Reminders</strong>
+            <span>Get notified 24 hours before your event</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="eventReminder" checked
+                   onchange="savePreference('eventReminder', this.checked)" />
+            <div class="toggle-slider"></div>
+          </label>
+        </div>
+
+        <div class="toggle-row">
+          <div class="toggle-label">
+            <strong>Promotional Offers</strong>
+            <span>Deals, discounts and new event alerts</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="promoNotif"
+                   onchange="savePreference('promoNotif', this.checked)" />
+            <div class="toggle-slider"></div>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="danger-zone">
+        <h3>⚠️ Account Actions</h3>
+        <p>Logging out will end your current session. Your data will remain safe.</p>
+        <button class="logout-btn" onclick="showLogoutModal()">
+          🚪 Logout
+        </button>
+        <a href="forgot-password.html" style="font-size:12px;color:#888;text-decoration:none;">
+          Change Password →
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── LOGOUT MODAL ── -->
+  <div class="modal-overlay" id="logoutModal">
+    <div class="modal">
+      <div class="modal-icon">🚪</div>
+      <h3>Logout?</h3>
+      <p>Are you sure you want to logout from your TicketNow account?</p>
+      <div class="modal-btns">
+        <button class="modal-cancel" onclick="hideLogoutModal()">Cancel</button>
+        <button class="modal-confirm" onclick="confirmLogout()">Yes, Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    // CONCEPTS USED (matching your training):
+    //   - let, const variables
+    //   - if / else conditions
+    //   - Functions + arrow functions
+    //   - DOM: getElementById, value, textContent, classList
+    //   - Events: onclick, onchange, addEventListener
+    //   - localStorage & sessionStorage: getItem, setItem, removeItem
+    //   - JSON: parse, stringify
+    //   - setTimeout (async)
+    //   - Template literals
+    //   - Object destructuring (ES6)
+    // ─────────────────────────────────────────────────────────────
+
+
+    // ── State ────────────────────────────────────────────────────
+    let isEditMode = false;   // tracks if form is in edit mode
+
+
+    // ── Show Toast ───────────────────────────────────────────────
+    const showToast = (msg, color = '#27ae60') => {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.background = color;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    };
+
+
+    // ── Load user data from sessionStorage / localStorage ────────
+    // (saved by signup.html and login.html)
+    const loadUserData = () => {
+
+      // Try sessionStorage first (set on login)
+      let userData = sessionStorage.getItem('loggedInUser');
+
+      // Fallback to localStorage (set on signup)
+      if (!userData) {
+        userData = localStorage.getItem('registeredUser');
+      }
+
+      if (userData) {
+        // Destructure object (ES6 feature - 9 Mar topic)
+        const { firstName, lastName, email, phone } = JSON.parse(userData);
+
+        // Fill form fields with saved data
+        document.getElementById('firstName').value = firstName || '';
+        document.getElementById('lastName').value  = lastName  || '';
+        document.getElementById('email').value     = email     || '';
+        document.getElementById('phone').value     = phone     || '';
+
+        // Update sidebar profile card
+        document.getElementById('sidebarName').textContent =
+          `${firstName} ${lastName}`;
+        document.getElementById('sidebarEmail').textContent = email;
+
+        // Show initials in avatar (first letter of first + last name)
+        const initials = `${firstName ? firstName[0] : ''}${lastName ? lastName[0] : ''}`;
+        document.getElementById('avatarCircle').textContent  = initials.toUpperCase();
+        document.getElementById('navAvatar').textContent     = initials.toUpperCase();
+
+        // Load extra saved profile data if it exists
+        const extraData = localStorage.getItem('profileExtra');
+        if (extraData) {
+          const extra = JSON.parse(extraData);
+          document.getElementById('city').value   = extra.city   || '';
+          document.getElementById('bio').value    = extra.bio    || '';
+          document.getElementById('gender').value = extra.gender || '';
+        }
+
+        // Load notification preferences
+        const prefs = localStorage.getItem('notifPrefs');
+        if (prefs) {
+          const p = JSON.parse(prefs);
+          document.getElementById('emailNotif').checked    = p.emailNotif    ?? true;
+          document.getElementById('eventReminder').checked = p.eventReminder ?? true;
+          document.getElementById('promoNotif').checked    = p.promoNotif    ?? false;
+        }
+
+      } else {
+        // No user found — redirect to login
+        showToast('Please login first!', '#e74c3c');
+        setTimeout(() => window.location.href = 'login.html', 1500);
+      }
+    };
+
+
+    // ── Toggle Edit / Save Mode ──────────────────────────────────
+    function toggleEdit() {
+
+      const btn = document.getElementById('editBtn');
+
+      if (!isEditMode) {
+        // Switch TO edit mode
+        isEditMode = true;
+        btn.textContent = '💾 Save Changes';
+        btn.style.background  = '#378ADD';
+        btn.style.color       = '#fff';
+        btn.style.borderColor = '#378ADD';
+
+        // Enable all inputs (except email — never editable)
+        const editableFields = ['firstName', 'lastName', 'phone', 'city', 'bio'];
+        editableFields.forEach(id => {
+          document.getElementById(id).removeAttribute('readonly');
+        });
+        document.getElementById('gender').removeAttribute('disabled');
+
+        // Focus first name
+        document.getElementById('firstName').focus();
+        showToast('📝 Edit mode on — make your changes!', '#378ADD');
+
+      } else {
+        // Validate before saving
+        if (!validateProfile()) return;
+
+        // Switch TO read mode
+        saveProfile();
+      }
+    }
+
+
+    // ── Validate profile fields ──────────────────────────────────
+    const validateProfile = () => {
+      let isValid = true;
+
+      // Clear all errors first
+      ['firstName', 'lastName', 'phone'].forEach(id => {
+        document.getElementById(id).classList.remove('error');
+        document.getElementById(`${id}-err`).classList.remove('show');
+      });
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+      const phone     = document.getElementById('phone').value.trim();
+
+      if (firstName === '') {
+        document.getElementById('firstName').classList.add('error');
+        document.getElementById('firstName-err').classList.add('show');
+        isValid = false;
+      }
+
+      if (lastName === '') {
+        document.getElementById('lastName').classList.add('error');
+        document.getElementById('lastName-err').classList.add('show');
+        isValid = false;
+      }
+
+      // Phone is optional but if entered must be 10 digits
+      if (phone !== '' && (phone.length !== 10 || isNaN(phone))) {
+        document.getElementById('phone').classList.add('error');
+        document.getElementById('phone-err').classList.add('show');
+        isValid = false;
+      }
+
+      return isValid;
+    };
+
+
+    // ── Save Profile to localStorage ─────────────────────────────
+    const saveProfile = () => {
+      const btn = document.getElementById('editBtn');
+      btn.textContent = 'Saving...';
+      btn.disabled    = true;
+
+      // Read updated values
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const phone     = document.getElementById('phone').value.trim();
+      const city      = document.getElementById('city').value.trim();
+      const bio       = document.getElementById('bio').value.trim();
+      const gender    = document.getElementById('gender').value;
+
+      // Update main user object in localStorage
+      const updatedUser = { firstName, lastName, email, phone };
+      localStorage.setItem('registeredUser', JSON.stringify(updatedUser));
+      sessionStorage.setItem('loggedInUser',  JSON.stringify(updatedUser));
+
+      // Save extra profile fields separately
+      const extraData = { city, bio, gender };
+      localStorage.setItem('profileExtra', JSON.stringify(extraData));
+
+      // Simulate save delay
+      setTimeout(() => {
+        // Update sidebar card live
+        document.getElementById('sidebarName').textContent = `${firstName} ${lastName}`;
+
+        // Update avatar initials
+        const initials = `${firstName[0]}${lastName[0]}`.toUpperCase();
+        document.getElementById('avatarCircle').textContent = initials;
+        document.getElementById('navAvatar').textContent    = initials;
+
+        // Set all fields back to readonly
+        ['firstName', 'lastName', 'phone', 'city', 'bio'].forEach(id => {
+          document.getElementById(id).setAttribute('readonly', true);
+        });
+        document.getElementById('gender').setAttribute('disabled', true);
+
+        // Reset button
+        isEditMode = false;
+        btn.textContent      = '✏️ Edit';
+        btn.style.background = 'transparent';
+        btn.style.color      = '#378ADD';
+        btn.disabled         = false;
+
+        showToast('✅ Profile updated successfully!');
+      }, 900);
+    };
+
+
+    // ── Save notification preferences to localStorage ─────────────
+    function savePreference(key, value) {
+      const prefs = localStorage.getItem('notifPrefs');
+      const current = prefs ? JSON.parse(prefs) : {};
+      current[key] = value;
+      localStorage.setItem('notifPrefs', JSON.stringify(current));
+      showToast(`🔔 Preference saved!`, '#378ADD');
+    }
+
+
+    // ── Logout Modal ─────────────────────────────────────────────
+    function showLogoutModal() {
+      document.getElementById('logoutModal').classList.add('show');
+    }
+
+    function hideLogoutModal() {
+      document.getElementById('logoutModal').classList.remove('show');
+    }
+
+    function confirmLogout() {
+      // Clear session data
+      sessionStorage.removeItem('loggedInUser');
+
+      showToast('👋 Logged out successfully!');
+
+      // Redirect to login after short delay
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1200);
+    }
+
+
+    // ── Close modal on overlay click ─────────────────────────────
+    document.getElementById('logoutModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('logoutModal')) {
+        hideLogoutModal();
+      }
+    });
+
+
+    // ── Load data when page opens ─────────────────────────────────
+    loadUserData();
+
+  </script>
+
+</body>
+</html>

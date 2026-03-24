@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math Utils Module Demo</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    padding:40px;
+    background:#f4f4f4;
+}
+
+h2{
+    text-align:center;
+}
+
+.container{
+    width:400px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input{
+    width:100%;
+    padding:8px;
+    margin-top:10px;
+}
+
+button{
+    margin-top:15px;
+    padding:8px 12px;
+    cursor:pointer;
+}
+
+.result{
+    margin-top:20px;
+    font-weight:bold;
+    color:blue;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Math Utils Module</h2>
+
+<div class="container">
+
+<input type="number" id="num1" placeholder="Enter first number">
+
+<input type="number" id="num2" placeholder="Enter second number">
+
+<button onclick="calculate()">Calculate</button>
+
+<div id="result" class="result"></div>
+
+</div>
+
+<script type="module">
+
+// Utils module code
+const Utils = `
+export const PI = 3.14159;
+
+export function add(a,b){
+    return a + b;
+}
+
+export function subtract(a,b){
+    return a - b;
+}
+
+export function multiply(a,b){
+    return a * b;
+}
+
+export function divide(a,b){
+    if(b === 0){
+        return "Cannot divide by zero";
+    }
+    return a / b;
+}
+`;
+
+// Create Blob
+const blob = new Blob([Utils], { type: "text/javascript" });
+
+// Create URL
+const moduleURL = URL.createObjectURL(blob);
+
+// Import module
+const utils = await import(moduleURL);
+
+// Button function
+window.calculate = function(){
+
+const n1 = Number(document.getElementById("num1").value);
+const n2 = Number(document.getElementById("num2").value);
+
+let output = `
+PI Value: ${utils.PI} <br>
+Addition: ${utils.add(n1,n2)} <br>
+Subtraction: ${utils.subtract(n1,n2)} <br>
+Multiplication: ${utils.multiply(n1,n2)} <br>
+Division: ${utils.divide(n1,n2)}
+`;
+
+document.getElementById("result").innerHTML = output;
+
+};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | TicketNow</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      background: #0f1b2d;
+      padding: 0 32px;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: #378ADD; }
+
+    .nav-center {
+      display: flex;
+      gap: 6px;
+    }
+
+    .nav-link {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .nav-link.active { background: rgba(55,138,221,0.2); color: #378ADD; font-weight: 600; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .notif-btn {
+      position: relative;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .notif-dot {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 8px;
+      height: 8px;
+      background: #e74c3c;
+      border-radius: 50%;
+      border: 1.5px solid #0f1b2d;
+    }
+
+    .nav-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #378ADD;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.2);
+      text-decoration: none;
+    }
+
+    /* ── Hero Banner ── */
+    .hero {
+      background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 100%);
+      padding: 40px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-left h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .hero-left h1 span { color: #378ADD; }
+
+    .hero-left p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 22px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      padding: 10px 22px;
+      background: #378ADD;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary:hover { background: #185FA5; }
+
+    .btn-outline {
+      padding: 10px 22px;
+      background: transparent;
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.6);
+    }
+
+    .hero-right {
+      font-size: 72px;
+      opacity: 0.15;
+      user-select: none;
+    }
+
+    /* ── Page Content ── */
+    .content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 28px 16px 40px;
+    }
+
+    /* ── Stats Row ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.blue   { background: #eef6ff; }
+    .stat-icon.green  { background: #e8f8ef; }
+    .stat-icon.orange { background: #fff4e6; }
+    .stat-icon.purple { background: #f3eeff; }
+
+    .stat-info strong {
+      display: block;
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f1b2d;
+      line-height: 1;
+    }
+
+    .stat-info span {
+      font-size: 11px;
+      color: #888;
+      margin-top: 3px;
+      display: block;
+    }
+
+    /* ── Section Title ── */
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .section-title h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f1b2d;
+    }
+
+    .see-all {
+      font-size: 12px;
+      color: #378ADD;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ── Sprint 1 Screens Quick Access ── */
+    .screens-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .screen-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+    }
+
+    .screen-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+      border-color: #378ADD;
+    }
+
+    .screen-card.done { border-color: #27ae60; }
+
+    .screen-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .screen-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f1b2d;
+      margin-bottom: 4px;
+    }
+
+    .screen-status {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .status-done {
+      background: #e8f8ef;
+      color: #27ae60;
+    }
+
+    .status-current {
+      background: #eef6ff;
+      color: #185FA5;
+    }
+
+    /* ── Two Column Layout ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* ── Upcoming Events (placeholder) ── */
+    .event-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .event-item:last-child { border-bottom: none; }
+
+    .event-date-box {
+      width: 44px;
+      height: 48px;
+      background: #0f1b2d;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .event-date-box .day {
+      font-size: 16px;
+      font-weight: 700;
+      color: #378ADD;
+      line-height: 1;
+    }
+
+    .event-date-box .month {
+      font-size: 9px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .event-info strong {
+      display: block;
+      font-size: 13px;
+      color: #0f1b2d;
+      font-weight: 600;
+    }
+
+    .event-info span {
+      font-size: 11px;
+      color: #888;
+    }
+
+    .event-price {
+      margin-left: auto;
+      font-size: 13px;
+      font-weight: 700;
+      color: #378ADD;
+    }
+
+    /* ── Recent Activity ── */
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 13px;
+    }
+
+    .activity-item:last-child { border-bottom: none; }
+
+    .activity-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .activity-text { color: #555; line-height: 1.5; }
+    .activity-time { font-size: 11px; color: #aaa; }
+
+    /* ── Quick Actions ── */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .action-btn {
+      background: #fff;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .action-btn:hover {
+      border-color: #378ADD;
+      background: #eef6ff;
+    }
+
+    .action-emoji { font-size: 22px; margin-bottom: 6px; }
+
+    .action-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #0f1b2d;
+    }
+
+    /* ── Welcome Alert (first login) ── */
+    .welcome-alert {
+      background: linear-gradient(135deg, #eef6ff, #e8f8ef);
+      border: 1px solid #b8d9f5;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .welcome-alert-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .welcome-alert-left strong {
+      display: block;
+      font-size: 14px;
+      color: #0f1b2d;
+    }
+
+    .welcome-alert-left span {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .alert-close {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #27ae60;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: transform 0.4s ease;
+      z-index: 999;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── Logout Modal ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 14px;
+      padding: 32px 28px;
+      max-width: 360px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .modal-icon { font-size: 40px; margin-bottom: 12px; }
+    .modal h3 { font-size: 17px; font-weight: 700; color: #0f1b2d; margin-bottom: 8px; }
+    .modal p  { font-size: 13px; color: #888; margin-bottom: 24px; line-height: 1.6; }
+
+    .modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .modal-cancel {
+      padding: 10px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .modal-confirm {
+      padding: 10px;
+      background: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
+      .stats-grid   { grid-template-columns: 1fr 1fr; }
+      .screens-grid { grid-template-columns: 1fr 1fr; }
+      .actions-grid { grid-template-columns: 1fr 1fr; }
+      .two-col      { grid-template-columns: 1fr; }
+      .hero-right   { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+    <a class="nav-brand" href="dashboard.html">Ticket<span>Now</span></a>
+
+    <div class="nav-center">
+      <a class="nav-link active" href="dashboard.html">🏠 Home</a>
+      <a class="nav-link" href="#">🎬 Events</a>
+      <a class="nav-link" href="#">🎟️ My Bookings</a>
+    </div>
+
+    <div class="nav-right">
+      <button class="notif-btn" title="Notifications">
+        🔔
+        <div class="notif-dot"></div>
+      </button>
+      <a class="nav-avatar" href="profile.html" id="navAvatar" title="My Profile">?</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO BANNER ── -->
+  <div class="hero">
+    <div class="hero-left">
+      <h1>Welcome back, <span id="heroName">User</span>! 👋</h1>
+      <p>Ready to book your next experience? Explore events happening near you.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#">🎬 Browse Events</a>
+        <a class="btn-outline" href="#">🎟️ My Bookings</a>
+      </div>
+    </div>
+    <div class="hero-right">🎟️</div>
+  </div>
+
+  <!-- ── MAIN CONTENT ── -->
+  <div class="content">
+
+    <!-- Welcome alert — shown on first login -->
+    <div class="welcome-alert" id="welcomeAlert">
+      <div class="welcome-alert-left">
+        <span style="font-size:28px">🎉</span>
+        <div>
+          <strong>Account setup complete!</strong>
+          <span>Sprint 1 is done — Sign Up ✅ Login ✅ OTP ✅ Profile ✅ Dashboard ✅</span>
+        </div>
+      </div>
+      <button class="alert-close" onclick="dismissAlert()">✕</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon blue">🎟️</div>
+        <div class="stat-info">
+          <strong>0</strong>
+          <span>Total Bookings</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">✅</div>
+        <div class="stat-info">
+          <strong>0</strong>
+          <span>Events Attended</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon orange">⭐</div>
+        <div class="stat-info">
+          <strong>0</strong>
+          <span>Reviews Given</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple">💰</div>
+        <div class="stat-info">
+          <strong>₹0</strong>
+          <span>Amount Saved</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sprint 1 screens quick access -->
+    <div class="section-title">
+      <h2>🚀 Sprint 1 — Auth Screens</h2>
+      <span style="font-size:12px;color:#27ae60;font-weight:600;">All 5 done ✅</span>
+    </div>
+
+    <div class="screens-grid">
+      <a class="screen-card done" href="signup.html">
+        <div class="screen-icon">📝</div>
+        <div class="screen-name">Sign Up</div>
+        <div class="screen-status status-done">✓ Complete</div>
+      </a>
+      <a class="screen-card done" href="login.html">
+        <div class="screen-icon">🔐</div>
+        <div class="screen-name">Login</div>
+        <div class="screen-status status-done">✓ Complete</div>
+      </a>
+      <a class="screen-card done" href="forgot-password.html">
+        <div class="screen-icon">🔑</div>
+        <div class="screen-name">Forgot Password</div>
+        <div class="screen-status status-done">✓ Complete</div>
+      </a>
+      <a class="screen-card done" href="profile.html">
+        <div class="screen-icon">👤</div>
+        <div class="screen-name">Profile</div>
+        <div class="screen-status status-done">✓ Complete</div>
+      </a>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="section-title">
+      <h2>⚡ Quick Actions</h2>
+    </div>
+
+    <div class="actions-grid">
+      <a class="action-btn" href="#">
+        <div class="action-emoji">🎬</div>
+        <div class="action-label">Browse Movies</div>
+      </a>
+      <a class="action-btn" href="#">
+        <div class="action-emoji">🎵</div>
+        <div class="action-label">Concerts</div>
+      </a>
+      <a class="action-btn" href="#">
+        <div class="action-emoji">🏏</div>
+        <div class="action-label">Sports</div>
+      </a>
+      <a class="action-btn" href="profile.html">
+        <div class="action-emoji">👤</div>
+        <div class="action-label">My Profile</div>
+      </a>
+    </div>
+
+    <!-- Two column: upcoming events + recent activity -->
+    <div class="two-col">
+
+      <!-- Upcoming Events -->
+      <div class="card">
+        <div class="section-title">
+          <h2>🗓️ Upcoming Events</h2>
+          <a class="see-all" href="#">See all</a>
+        </div>
+
+        <div class="event-item">
+          <div class="event-date-box">
+            <div class="day">22</div>
+            <div class="month">Mar</div>
+          </div>
+          <div class="event-info">
+            <strong>Arijit Singh Live</strong>
+            <span>📍 SMS Stadium, Jaipur</span>
+          </div>
+          <div class="event-price">₹999</div>
+        </div>
+
+        <div class="event-item">
+          <div class="event-date-box">
+            <div class="day">28</div>
+            <div class="month">Mar</div>
+          </div>
+          <div class="event-info">
+            <strong>IPL: RR vs MI</strong>
+            <span>📍 Sawai Mansingh, Jaipur</span>
+          </div>
+          <div class="event-price">₹1,200</div>
+        </div>
+
+        <div class="event-item">
+          <div class="event-date-box">
+            <div class="day">05</div>
+            <div class="month">Apr</div>
+          </div>
+          <div class="event-info">
+            <strong>Pushpa 2 Reloaded</strong>
+            <span>📍 PVR Cinemas, Jaipur</span>
+          </div>
+          <div class="event-price">₹250</div>
+        </div>
+
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <div class="section-title">
+          <h2>📋 Recent Activity</h2>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot" style="background:#27ae60"></div>
+          <div>
+            <div class="activity-text">Account created successfully</div>
+            <div class="activity-time">Just now</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot" style="background:#378ADD"></div>
+          <div>
+            <div class="activity-text">Logged in to TicketNow</div>
+            <div class="activity-time">Just now</div>
+          </div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-dot" style="background:#888"></div>
+          <div>
+            <div class="activity-text">No bookings yet — browse events to get started!</div>
+            <div class="activity-time">—</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Logout button at bottom -->
+    <div style="text-align:right; margin-top:8px">
+      <button onclick="showLogoutModal()"
+        style="padding:9px 22px;background:#e74c3c;color:#fff;border:none;
+               border-radius:8px;font-size:13px;font-weight:600;
+               font-family:'Segoe UI',sans-serif;cursor:pointer;">
+        🚪 Logout
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Logout Modal -->
+  <div class="modal-overlay" id="logoutModal">
+    <div class="modal">
+      <div class="modal-icon">🚪</div>
+      <h3>Logout?</h3>
+      <p>Are you sure you want to logout from your TicketNow account?</p>
+      <div class="modal-btns">
+        <button class="modal-cancel" onclick="hideLogoutModal()">Cancel</button>
+        <button class="modal-confirm" onclick="confirmLogout()">Yes, Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    // CONCEPTS USED (matching your training):
+    //   - let, const
+    //   - if / else
+    //   - Functions + arrow functions
+    //   - DOM: getElementById, textContent, classList
+    //   - localStorage & sessionStorage
+    //   - JSON.parse
+    //   - setTimeout
+    //   - Template literals
+    // ─────────────────────────────────────────────────────────────
+
+
+    // ── Toast ────────────────────────────────────────────────────
+    const showToast = (msg, color = '#27ae60') => {
+      const toast = document.getElementById('toast');
+      toast.textContent      = msg;
+      toast.style.background = color;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    };
+
+
+    // ── Load logged-in user and personalise the page ─────────────
+    const loadUser = () => {
+      // Try sessionStorage first (set on login)
+      let data = sessionStorage.getItem('loggedInUser');
+
+      // Fallback to localStorage (set on signup)
+      if (!data) data = localStorage.getItem('registeredUser');
+
+      if (data) {
+        const user = JSON.parse(data);
+
+        const firstName = user.firstName || 'User';
+        const lastName  = user.lastName  || '';
+
+        // Update hero greeting
+        document.getElementById('heroName').textContent = firstName;
+
+        // Update navbar avatar initials
+        const initials = `${firstName[0]}${lastName ? lastName[0] : ''}`.toUpperCase();
+        document.getElementById('navAvatar').textContent = initials;
+
+      } else {
+        // Not logged in — redirect to login
+        showToast('Please login first!', '#e74c3c');
+        setTimeout(() => window.location.href = 'login.html', 1500);
+      }
+    };
+
+
+    // ── Dismiss welcome alert ────────────────────────────────────
+    function dismissAlert() {
+      document.getElementById('welcomeAlert').style.display = 'none';
+      // Remember dismissed so it doesn't show again
+      localStorage.setItem('alertDismissed', 'true');
+    }
+
+    // Check if alert was already dismissed
+    const checkAlert = () => {
+      if (localStorage.getItem('alertDismissed') === 'true') {
+        document.getElementById('welcomeAlert').style.display = 'none';
+      }
+    };
+
+
+    // ── Logout modal ─────────────────────────────────────────────
+    function showLogoutModal() {
+      document.getElementById('logoutModal').classList.add('show');
+    }
+
+    function hideLogoutModal() {
+      document.getElementById('logoutModal').classList.remove('show');
+    }
+
+    function confirmLogout() {
+      // Clear session
+      sessionStorage.removeItem('loggedInUser');
+      showToast('👋 Logged out. See you soon!');
+      setTimeout(() => window.location.href = 'login.html', 1200);
+    }
+
+    // Close modal on outside click
+    document.getElementById('logoutModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('logoutModal')) {
+        hideLogoutModal();
+      }
+    });
+
+
+    // ── Run on page load ─────────────────────────────────────────
+    loadUser();
+    checkAlert();
+
+  </script>
+
+</body>
+</html>

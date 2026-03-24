@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | TicketNow</title>
+  <style>
+    /* ── Reset & Base ── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 860px;
+      width: 95%;
+      overflow: hidden;
+    }
+
+    /* ── Left Panel ── */
+    .left {
+      background: #0f1b2d;
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .brand {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    .brand span {
+      color: #378ADD;
+    }
+
+    .brand-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(55,138,221,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+
+    .feature-text strong {
+      display: block;
+      color: #ffffff;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .feature-text span {
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+    }
+
+    /* ── Right Panel ── */
+    .right {
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .right h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f1b2d;
+      margin-bottom: 4px;
+    }
+
+    .right p {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    .right p a {
+      color: #378ADD;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ── Form Fields ── */
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Segoe UI', sans-serif;
+      color: #0f1b2d;
+      background: #f8fafc;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .field input:focus {
+      border-color: #378ADD;
+      background: #ffffff;
+    }
+
+    /* error state */
+    .field input.error {
+      border-color: #e74c3c;
+      background: #fff8f8;
+    }
+
+    .err-msg {
+      font-size: 11px;
+      color: #e74c3c;
+      margin-top: 4px;
+      display: none;        /* hidden by default */
+    }
+
+    /* JS will add .show class to display it */
+    .err-msg.show {
+      display: block;
+    }
+
+    /* ── Password Wrapper ── */
+    .pass-wrap {
+      position: relative;
+    }
+
+    .pass-wrap input {
+      padding-right: 42px;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      color: #aaa;
+    }
+
+    /* ── Social Buttons ── */
+    .social-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .social-btn {
+      height: 40px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: 500;
+      color: #333;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .social-btn:hover {
+      border-color: #378ADD;
+      background: #ffffff;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: #aaa;
+      margin-bottom: 16px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0e0e0;
+    }
+
+    /* ── Submit Button ── */
+    .submit-btn {
+      width: 100%;
+      height: 44px;
+      background: #378ADD;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 4px;
+    }
+
+    .submit-btn:hover {
+      background: #185FA5;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.99);
+    }
+
+    /* success state - JS adds this class */
+    .submit-btn.success {
+      background: #27ae60;
+    }
+
+    /* ── Terms ── */
+    .terms {
+      font-size: 11px;
+      color: #aaa;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .terms a {
+      color: #555;
+      text-decoration: underline;
+    }
+
+    /* ── Toast Notification ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px); /* hidden below screen */
+      background: #27ae60;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Segoe UI', sans-serif;
+      transition: transform 0.4s ease;
+      z-index: 999;
+    }
+
+    /* JS adds .show to slide it up */
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 620px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+      .left {
+        display: none;
+      }
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- ───── LEFT PANEL ───── -->
+    <div class="left">
+      <div>
+        <div class="brand">Ticket<span>Now</span></div>
+        <div class="brand-sub">Online Ticket Booking</div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🎬</div>
+        <div class="feature-text">
+          <strong>Movies, Concerts & Sports</strong>
+          <span>Browse thousands of events near you</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">💺</div>
+        <div class="feature-text">
+          <strong>Choose Your Seat</strong>
+          <span>Interactive seat maps with live availability</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-text">
+          <strong>Secure Payments</strong>
+          <span>Cards, UPI & instant e-tickets on email</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ───── RIGHT PANEL ───── -->
+    <div class="right">
+      <h2>Create your account</h2>
+      <p>Already have an account? <a href="login.html">Sign in</a></p>
+
+      <!-- Social Login Buttons -->
+      <div class="social-row">
+        <button class="social-btn" onclick="socialLogin('Google')">
+          🌐 Google
+        </button>
+        <button class="social-btn" onclick="socialLogin('Facebook')">
+          📘 Facebook
+        </button>
+      </div>
+
+      <div class="divider">or register with email</div>
+
+      <!-- Signup Form -->
+      <!-- NOTE: We use div + button instead of <form> + submit
+           so we can fully control validation with JS -->
+      <div id="signupForm">
+
+        <!-- Row: First & Last Name -->
+        <div class="row">
+          <div class="field">
+            <label>First Name</label>
+            <input type="text" id="firstName" placeholder="Riya" />
+            <div class="err-msg" id="firstName-err">Enter your first name</div>
+          </div>
+
+          <div class="field">
+            <label>Last Name</label>
+            <input type="text" id="lastName" placeholder="Sharma" />
+            <div class="err-msg" id="lastName-err">Enter your last name</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="riya@example.com" />
+          <div class="err-msg" id="email-err">Enter a valid email address</div>
+        </div>
+
+        <!-- Phone -->
+        <div class="field">
+          <label>Phone Number</label>
+          <input type="tel" id="phone" placeholder="9876543210" maxlength="10" />
+          <div class="err-msg" id="phone-err">Enter a valid 10-digit number</div>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <label>Password</label>
+          <div class="pass-wrap">
+            <input type="password" id="password" placeholder="Min. 8 characters" />
+            <button class="toggle-pass" onclick="togglePassword('password', this)">👁️</button>
+          </div>
+          <div class="err-msg" id="password-err">Password must be at least 8 characters</div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="field">
+          <label>Confirm Password</label>
+          <div class="pass-wrap">
+            <input type="password" id="confirmPassword" placeholder="Re-enter password" />
+            <button class="toggle-pass" onclick="togglePassword('confirmPassword', this)">👁️</button>
+          </div>
+          <div class="err-msg" id="confirmPassword-err">Passwords do not match</div>
+        </div>
+
+        <!-- Submit -->
+        <button class="submit-btn" id="registerBtn" onclick="handleRegister()">
+          Create Account
+        </button>
+
+        <div class="terms">
+          By signing up you agree to our
+          <a href="#">Terms of Service</a> and
+          <a href="#">Privacy Policy</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    🎉 Account created! Check your email for confirmation.
+  </div>
+
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    // CONCEPTS USED (matching your training up to 13 March):
+    //   - Variables (let, const)
+    //   - DOM manipulation (getElementById, querySelector)
+    //   - Events (onclick)
+    //   - Conditions (if / else)
+    //   - Functions (declaration, arrow functions)
+    //   - Array methods (forEach)
+    //   - Template literals
+    //   - ES6: const, let, arrow functions, destructuring
+    // ─────────────────────────────────────────────────────────────
+
+
+    // ── 1. Toggle password visibility ──────────────────────────
+    // Uses DOM manipulation to change input type
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁️';
+      }
+    }
+
+
+    // ── 2. Social login placeholder ────────────────────────────
+    function socialLogin(provider) {
+      alert(`${provider} login coming soon!`);
+    }
+
+
+    // ── 3. Helper — show error on a field ──────────────────────
+    // Arrow function + template literal (ES6)
+    const showError = (fieldId) => {
+      const input = document.getElementById(fieldId);
+      const errMsg = document.getElementById(`${fieldId}-err`);
+      input.classList.add('error');
+      errMsg.classList.add('show');
+    };
+
+
+    // ── 4. Helper — clear error on a field ─────────────────────
+    const clearError = (fieldId) => {
+      const input = document.getElementById(fieldId);
+      const errMsg = document.getElementById(`${fieldId}-err`);
+      input.classList.remove('error');
+      errMsg.classList.remove('show');
+    };
+
+
+    // ── 5. Clear all errors before re-validating ───────────────
+    // Uses an array + forEach (Higher-Order Function - 12 Mar topic)
+    const clearAllErrors = () => {
+      const fields = ['firstName', 'lastName', 'email', 'phone', 'password', 'confirmPassword'];
+      fields.forEach(fieldId => clearError(fieldId));
+    };
+
+
+    // ── 6. Validate email using a simple condition ──────────────
+    const isValidEmail = (email) => {
+      // checks for @ and . in email
+      return email.includes('@') && email.includes('.');
+    };
+
+
+    // ── 7. Show toast notification ─────────────────────────────
+    // Uses setTimeout (async concept - 13 Mar topic!)
+    const showToast = (message) => {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    };
+
+
+    // ── 8. MAIN: Handle Register button click ──────────────────
+    function handleRegister() {
+
+      // Step 1 — Clear previous errors
+      clearAllErrors();
+
+      // Step 2 — Read input values from DOM
+      const firstName       = document.getElementById('firstName').value.trim();
+      const lastName        = document.getElementById('lastName').value.trim();
+      const email           = document.getElementById('email').value.trim();
+      const phone           = document.getElementById('phone').value.trim();
+      const password        = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Step 3 — Validate each field (if/else conditions)
+      let isValid = true;   // flag variable
+
+      if (firstName === '') {
+        showError('firstName');
+        isValid = false;
+      }
+
+      if (lastName === '') {
+        showError('lastName');
+        isValid = false;
+      }
+
+      if (email === '' || !isValidEmail(email)) {
+        showError('email');
+        isValid = false;
+      }
+
+      // phone must be exactly 10 digits
+      if (phone.length !== 10 || isNaN(phone)) {
+        showError('phone');
+        isValid = false;
+      }
+
+      if (password.length < 8) {
+        showError('password');
+        isValid = false;
+      }
+
+      if (confirmPassword !== password) {
+        showError('confirmPassword');
+        isValid = false;
+      }
+
+      // Step 4 — If any error, stop here
+      if (!isValid) return;
+
+      // Step 5 — Simulate saving user data using an object (ES6)
+      const newUser = {
+        firstName,
+        lastName,
+        email,
+        phone
+      };
+
+      // Store in localStorage so login.html can read it later
+      localStorage.setItem('registeredUser', JSON.stringify(newUser));
+
+      // Step 6 — Update button state (DOM manipulation)
+      const btn = document.getElementById('registerBtn');
+      btn.textContent = 'Creating account...';
+      btn.disabled = true;
+
+      // Step 7 — Simulate API delay using setTimeout (async - 13 Mar)
+      setTimeout(() => {
+        btn.textContent   = '✅ Account Created!';
+        btn.style.background = '#27ae60';
+
+        // Show toast
+        showToast('🎉 Account created! Redirecting to login...');
+
+        // Redirect to login page after 2 seconds
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+
+      }, 1500);
+
+    }
+
+
+    // ── 9. Live input — clear error as user types (addEventListener) ──
+    // Concept: Events + forEach (DOM Events - 7 Mar topic)
+    const inputFields = ['firstName', 'lastName', 'email', 'phone', 'password', 'confirmPassword'];
+
+    inputFields.forEach(fieldId => {
+      const input = document.getElementById(fieldId);
+      input.addEventListener('input', () => {
+        clearError(fieldId);
+      });
+    });
+
+  </script>
+
+</body>
+</html>

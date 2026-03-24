@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | TicketNow</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 860px;
+      width: 95%;
+      overflow: hidden;
+    }
+
+    /* ── Left Panel ── */
+    .left {
+      background: #0f1b2d;
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .brand {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .brand span { color: #378ADD; }
+
+    .brand-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(55,138,221,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+    }
+
+    .feature-text strong {
+      display: block;
+      color: #ffffff;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .feature-text span {
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+    }
+
+    /* ── Right Panel ── */
+    .right {
+      padding: 48px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .right h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f1b2d;
+      margin-bottom: 4px;
+    }
+
+    .right p {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 28px;
+    }
+
+    .right p a {
+      color: #378ADD;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ── Fields ── */
+    .field {
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Segoe UI', sans-serif;
+      color: #0f1b2d;
+      background: #f8fafc;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .field input:focus {
+      border-color: #378ADD;
+      background: #ffffff;
+    }
+
+    .field input.error {
+      border-color: #e74c3c;
+      background: #fff8f8;
+    }
+
+    .err-msg {
+      font-size: 11px;
+      color: #e74c3c;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .err-msg.show { display: block; }
+
+    /* ── Password wrapper ── */
+    .pass-wrap { position: relative; }
+
+    .pass-wrap input { padding-right: 42px; }
+
+    .toggle-pass {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      color: #aaa;
+    }
+
+    /* ── Remember me + Forgot ── */
+    .remember-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 12px;
+    }
+
+    .remember-row label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .remember-row input[type="checkbox"] {
+      accent-color: #378ADD;
+      width: 14px;
+      height: 14px;
+    }
+
+    .remember-row a {
+      color: #378ADD;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ── Alert box (wrong credentials) ── */
+    .alert-box {
+      background: #fff0f0;
+      border: 1px solid #f5c6c6;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #c0392b;
+      margin-bottom: 16px;
+      display: none;         /* hidden by default */
+    }
+
+    .alert-box.show { display: block; }
+
+    /* ── Attempts warning ── */
+    .attempts-msg {
+      font-size: 11px;
+      color: #e67e22;
+      margin-top: -10px;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    .attempts-msg.show { display: block; }
+
+    /* ── Submit Button ── */
+    .submit-btn {
+      width: 100%;
+      height: 44px;
+      background: #378ADD;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Segoe UI', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .submit-btn:hover { background: #185FA5; }
+    .submit-btn:active { transform: scale(0.99); }
+    .submit-btn.success { background: #27ae60; }
+    .submit-btn:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: #aaa;
+      margin: 18px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e0e0e0;
+    }
+
+    .signup-link {
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .signup-link a {
+      color: #378ADD;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #27ae60;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: transform 0.4s ease;
+      z-index: 999;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Lockout overlay ── */
+    .lockout {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: #856404;
+      display: none;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .lockout.show { display: block; }
+
+    @media (max-width: 620px) {
+      .card { grid-template-columns: 1fr; }
+      .left { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- ── LEFT PANEL ── -->
+    <div class="left">
+      <div>
+        <div class="brand">Ticket<span>Now</span></div>
+        <div class="brand-sub">Online Ticket Booking</div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🎟️</div>
+        <div class="feature-text">
+          <strong>Your Bookings, All in One Place</strong>
+          <span>View, download and manage every ticket</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-text">
+          <strong>Event Reminders</strong>
+          <span>Never miss a show with smart notifications</span>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-text">
+          <strong>Fast & Secure Checkout</strong>
+          <span>Book your seat in under 60 seconds</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT PANEL ── -->
+    <div class="right">
+      <h2>Welcome back!</h2>
+      <p>New here? <a href="signup.html">Create an account</a></p>
+
+      <!-- Wrong credentials alert -->
+      <div class="alert-box" id="alertBox">
+        ❌ Incorrect email or password. Please try again.
+      </div>
+
+      <!-- Account lockout warning -->
+      <div class="lockout" id="lockoutBox">
+        🔒 Account locked after 5 failed attempts.
+        Try again in <strong id="lockTimer">30</strong> seconds.
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm">
+
+        <!-- Email -->
+        <div class="field">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="riya@example.com" />
+          <div class="err-msg" id="email-err">Please enter your email address</div>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <label>Password</label>
+          <div class="pass-wrap">
+            <input type="password" id="password" placeholder="Enter your password" />
+            <button class="toggle-pass" onclick="togglePassword()">👁️</button>
+          </div>
+          <div class="err-msg" id="password-err">Please enter your password</div>
+        </div>
+
+        <!-- Failed attempts warning -->
+        <div class="attempts-msg" id="attemptsMsg"></div>
+
+        <!-- Remember me + Forgot password -->
+        <div class="remember-row">
+          <label>
+            <input type="checkbox" id="rememberMe" />
+            Remember me
+          </label>
+          <a href="forgot-password.html">Forgot password?</a>
+        </div>
+
+        <!-- Submit -->
+        <button class="submit-btn" id="loginBtn" onclick="handleLogin()">
+          Sign In
+        </button>
+
+        <div class="divider">or</div>
+
+        <div class="signup-link">
+          Don't have an account? <a href="signup.html">Sign up for free</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">✅ Login successful! Redirecting...</div>
+
+
+  <script>
+    // ─────────────────────────────────────────────────────────────
+    // CONCEPTS USED (matching your training):
+    //   - Variables: let, const
+    //   - Conditions: if / else
+    //   - Functions: declaration + arrow functions
+    //   - DOM: getElementById, classList, textContent
+    //   - Events: onclick, addEventListener
+    //   - localStorage: getItem, setItem (ES6)
+    //   - JSON: parse, stringify
+    //   - setTimeout (async - 13 Mar)
+    //   - Template literals
+    //   - forEach
+    // ─────────────────────────────────────────────────────────────
+
+
+    // ── Track failed login attempts ──────────────────────────────
+    // Using let because this value will change
+    let failedAttempts = 0;
+    const MAX_ATTEMPTS = 5;
+    let isLocked = false;
+
+
+    // ── Toggle password visibility ───────────────────────────────
+    function togglePassword() {
+      const input = document.getElementById('password');
+      const btn   = document.querySelector('.toggle-pass');
+
+      if (input.type === 'password') {
+        input.type    = 'text';
+        btn.textContent = '🙈';
+      } else {
+        input.type    = 'password';
+        btn.textContent = '👁️';
+      }
+    }
+
+
+    // ── Show / Clear error helpers ────────────────────────────────
+    const showError = (fieldId, message) => {
+      const input  = document.getElementById(fieldId);
+      const errDiv = document.getElementById(`${fieldId}-err`);
+      input.classList.add('error');
+      if (message) errDiv.textContent = message;
+      errDiv.classList.add('show');
+    };
+
+    const clearError = (fieldId) => {
+      const input  = document.getElementById(fieldId);
+      const errDiv = document.getElementById(`${fieldId}-err`);
+      input.classList.remove('error');
+      errDiv.classList.remove('show');
+    };
+
+
+    // ── Show toast ────────────────────────────────────────────────
+    const showToast = (msg) => {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    };
+
+
+    // ── Lock account for 30 seconds after 5 failed attempts ───────
+    // Uses setInterval + setTimeout (async concepts - 13 Mar)
+    const lockAccount = () => {
+      isLocked = true;
+
+      const loginBtn  = document.getElementById('loginBtn');
+      const lockBox   = document.getElementById('lockoutBox');
+      const timerSpan = document.getElementById('lockTimer');
+
+      loginBtn.disabled = true;
+      lockBox.classList.add('show');
+
+      let seconds = 30;
+      timerSpan.textContent = seconds;
+
+      // Countdown every second
+      const countdown = setInterval(() => {
+        seconds--;
+        timerSpan.textContent = seconds;
+
+        if (seconds <= 0) {
+          clearInterval(countdown);    // stop the interval
+          isLocked       = false;
+          failedAttempts = 0;
+          loginBtn.disabled = false;
+          lockBox.classList.remove('show');
+          document.getElementById('attemptsMsg').classList.remove('show');
+        }
+      }, 1000);
+    };
+
+
+    // ── MAIN: Handle Login ────────────────────────────────────────
+    function handleLogin() {
+
+      // If locked, do nothing
+      if (isLocked) return;
+
+      // Step 1 — Clear previous errors
+      clearError('email');
+      clearError('password');
+      document.getElementById('alertBox').classList.remove('show');
+
+      // Step 2 — Read values from DOM
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const remember = document.getElementById('rememberMe').checked;
+
+      // Step 3 — Basic validation (empty check)
+      let isValid = true;
+
+      if (email === '') {
+        showError('email', 'Please enter your email address');
+        isValid = false;
+      }
+
+      if (password === '') {
+        showError('password', 'Please enter your password');
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Step 4 — Read registered user from localStorage
+      // (saved by signup.html using JSON.stringify)
+      const storedData = localStorage.getItem('registeredUser');
+
+      // Step 5 — Check credentials
+      // Demo fallback: admin@ticketnow.com / admin123
+      let loginSuccess = false;
+
+      if (storedData) {
+        // Parse JSON string back to object
+        const user = JSON.parse(storedData);
+
+        // Check if email matches and password is correct
+        // (In real app: backend verifies hashed password)
+        if (user.email === email && password.length >= 8) {
+          loginSuccess = true;
+
+          // Save logged in user to sessionStorage
+          sessionStorage.setItem('loggedInUser', JSON.stringify(user));
+
+          // If remember me is checked, keep in localStorage too
+          if (remember) {
+            localStorage.setItem('rememberedEmail', email);
+          }
+        }
+      }
+
+      // Demo admin account always works
+      if (email === 'admin@ticketnow.com' && password === 'admin123') {
+        loginSuccess = true;
+        const adminUser = { firstName: 'Admin', lastName: 'User', email };
+        sessionStorage.setItem('loggedInUser', JSON.stringify(adminUser));
+      }
+
+      // Step 6 — Handle result
+      if (loginSuccess) {
+
+        // Reset failed attempts
+        failedAttempts = 0;
+
+        // Update button
+        const btn = document.getElementById('loginBtn');
+        btn.textContent = 'Signing in...';
+        btn.disabled    = true;
+
+        // Simulate API delay then redirect
+        setTimeout(() => {
+          btn.textContent      = '✅ Login Successful!';
+          btn.style.background = '#27ae60';
+          showToast('✅ Welcome back! Redirecting to dashboard...');
+
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 1500);
+        }, 1200);
+
+      } else {
+
+        // Increment failed attempts
+        failedAttempts++;
+
+        // Show wrong credentials alert
+        document.getElementById('alertBox').classList.add('show');
+
+        // Show remaining attempts warning
+        const remaining   = MAX_ATTEMPTS - failedAttempts;
+        const attemptsMsg = document.getElementById('attemptsMsg');
+
+        if (remaining > 0 && failedAttempts > 1) {
+          attemptsMsg.textContent = `⚠️ ${remaining} attempt${remaining > 1 ? 's' : ''} remaining before account lockout`;
+          attemptsMsg.classList.add('show');
+        }
+
+        // Lock after 5 failed attempts
+        if (failedAttempts >= MAX_ATTEMPTS) {
+          lockAccount();
+        }
+
+        // Shake the card for visual feedback
+        const card = document.querySelector('.card');
+        card.style.animation = 'none';
+        card.style.transform = 'translateX(6px)';
+        setTimeout(() => card.style.transform = 'translateX(0)', 100);
+      }
+    }
+
+
+    // ── Auto-fill remembered email on page load ───────────────────
+    // Uses localStorage.getItem
+    const rememberedEmail = localStorage.getItem('rememberedEmail');
+    if (rememberedEmail) {
+      document.getElementById('email').value = rememberedEmail;
+      document.getElementById('rememberMe').checked = true;
+    }
+
+
+    // ── Live clear errors as user types ──────────────────────────
+    // forEach + addEventListener (Events - 7 Mar topic)
+    const fields = ['email', 'password'];
+    fields.forEach(fieldId => {
+      document.getElementById(fieldId).addEventListener('input', () => {
+        clearError(fieldId);
+        document.getElementById('alertBox').classList.remove('show');
+      });
+    });
+
+
+    // ── Allow Enter key to submit ────────────────────────────────
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleLogin();
+    });
+
+  </script>
+
+</body>
+</html>

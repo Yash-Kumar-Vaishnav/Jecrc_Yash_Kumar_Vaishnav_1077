@@ -1,0 +1,70 @@
+<div class="cart-page">
+  <div class="page-header">
+    <div class="header-content">
+      <a routerLink="/" class="back-btn">← Continue Shopping</a>
+      <h1>🛒 Your Cart</h1>
+      <span class="item-count">{{ cartService.itemCount() }} items</span>
+    </div>
+  </div>
+
+  <div class="cart-container" *ngIf="cartService.items().length > 0; else emptyCart">
+    <div class="cart-items">
+      <div class="cart-item" *ngFor="let item of cartService.items()">
+        <img [src]="item.product.image" [alt]="item.product.name" class="item-image" />
+        <div class="item-details">
+          <h3>{{ item.product.name }}</h3>
+          <p class="item-category">{{ item.product.category }}</p>
+          <p class="item-price-unit">{{ formatPrice(item.product.price) }} each</p>
+        </div>
+        <div class="qty-controls">
+          <button class="qty-btn" (click)="decreaseQty(item)">−</button>
+          <span class="qty-value">{{ item.quantity }}</span>
+          <button class="qty-btn" (click)="increaseQty(item)">+</button>
+        </div>
+        <div class="item-total">{{ formatPrice(getItemTotal(item)) }}</div>
+        <button class="remove-btn" (click)="removeItem(item.product.id)">🗑️</button>
+      </div>
+
+      <div class="cart-actions">
+        <button class="clear-btn" (click)="clearCart()">🗑️ Clear Cart</button>
+        <a routerLink="/" class="continue-btn">← Add More Items</a>
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+      <div class="summary-rows">
+        <div class="summary-row">
+          <span>Subtotal ({{ cartService.itemCount() }} items)</span>
+          <span>{{ formatPrice(cartService.totalPrice()) }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span class="free-tag">FREE</span>
+        </div>
+        <div class="summary-row">
+          <span>GST (18%)</span>
+          <span>{{ formatPrice(getTax()) }}</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row total-row">
+          <span>Total</span>
+          <span>{{ formatPrice(getGrandTotal()) }}</span>
+        </div>
+      </div>
+      <a routerLink="/checkout" class="checkout-btn">Proceed to Checkout →</a>
+      <div class="secure-badge">🔒 Secure Checkout</div>
+    </div>
+  </div>
+
+  <!-- Empty Cart -->
+  <ng-template #emptyCart>
+    <div class="empty-cart">
+      <div class="empty-icon">🛒</div>
+      <h2>Your cart is empty</h2>
+      <p>Looks like you haven't added anything yet.</p>
+      <a routerLink="/" class="shop-btn">Start Shopping</a>
+    </div>
+  </ng-template>
+</div>

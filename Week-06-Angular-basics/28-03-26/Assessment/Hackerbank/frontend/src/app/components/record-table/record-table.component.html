@@ -1,0 +1,72 @@
+<div class="page-header">
+  <div class="page-title-group">
+    <h1 class="page-title">Transaction History</h1>
+    <p class="page-subtitle">View and filter your recent account transactions</p>
+  </div>
+  <div class="account-summary">
+    <div class="summary-item">
+      <span class="summary-label">Account</span>
+      <span class="summary-value">****4892</span>
+    </div>
+    <div class="summary-divider"></div>
+    <div class="summary-item">
+      <span class="summary-label">Available Balance</span>
+      <span class="summary-value balance">{{ checkingBalance }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="record-table-container">
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label for="dateFilter" class="filter-label">Filter by Date:</label>
+      <input
+        type="date"
+        id="dateFilter"
+        class="date-input"
+        [(ngModel)]="selectedDate"
+      />
+      <button class="btn-filter" (click)="filterByDate()">Filter</button>
+      <button class="btn-reset" (click)="resetFilter()">Reset</button>
+    </div>
+    <div class="record-count">
+      Showing {{ displayedTransactions.length }} of {{ allTransactions.length }} transactions
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="transactions-table">
+      <thead>
+        <tr>
+          <th class="col-date">Date</th>
+          <th class="col-description">Description</th>
+          <th class="col-type">Type</th>
+          <th class="col-amount sortable" (click)="sortByAmount()" title="Click to sort ascending by amount">
+            Amount ($)
+            <span class="sort-icon">&#9650;</span>
+          </th>
+          <th class="col-balance">Available Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of displayedTransactions; let i = index"
+            [class.row-even]="i % 2 === 0"
+            [class.row-odd]="i % 2 !== 0">
+          <td class="col-date">{{ transaction.date }}</td>
+          <td class="col-description">{{ transaction.description }}</td>
+          <td class="col-type">
+            <span [class.badge-credit]="transaction.type === 0"
+                  [class.badge-debit]="transaction.type === 1">
+              {{ getTypeLabel(transaction.type) }}
+            </span>
+          </td>
+          <td class="col-amount">{{ transaction.amount | number:'1.2-2' }}</td>
+          <td class="col-balance">{{ transaction.balance }}</td>
+        </tr>
+        <tr *ngIf="displayedTransactions.length === 0">
+          <td colspan="5" class="no-records">No transactions found for the selected date.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

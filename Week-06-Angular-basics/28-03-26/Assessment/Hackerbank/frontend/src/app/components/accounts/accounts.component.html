@@ -1,0 +1,130 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">My Accounts</h1>
+    <p class="page-subtitle">Overview of all your linked accounts</p>
+  </div>
+</div>
+
+<div class="accounts-grid">
+  <div class="account-card" *ngFor="let account of state.accounts" [class.frozen-card]="account.frozen">
+    <div class="card-header">
+      <div class="account-icon" [class.frozen-icon]="account.frozen">{{ account.icon }}</div>
+      <div class="account-meta">
+        <span class="account-type">{{ account.type }}</span>
+        <span class="account-number">{{ account.number }}</span>
+      </div>
+      <span class="status-badge" [class.active]="!account.frozen" [class.frozen]="account.frozen">
+        {{ account.status }}
+      </span>
+    </div>
+
+    <div class="card-body">
+      <div class="balance-section">
+        <div class="balance-item">
+          <span class="balance-label">Current Balance</span>
+          <span class="balance-amount" [class.negative-amount]="account.balance < 0">
+            {{ state.formatBalance(account.balance) }}
+          </span>
+        </div>
+        <div class="balance-divider"></div>
+        <div class="balance-item">
+          <span class="balance-label">Available</span>
+          <span class="balance-amount available">{{ state.formatBalance(account.available) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <span class="opened-label">Opened {{ account.opened }}</span>
+      <div class="card-actions">
+        <button class="btn-action" (click)="openStatements(account)">View Statements</button>
+        <button class="btn-action primary" (click)="openManage(account)">Manage</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="total-section">
+  <span class="total-label">Total Net Worth</span>
+  <span class="total-amount">{{ state.formatBalance(totalNetWorth) }}</span>
+</div>
+
+<div class="modal-overlay" *ngIf="activeModal" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">&#10005;</button>
+
+    <div *ngIf="activeModal === 'statements' && selectedAccount">
+      <h2 class="modal-title">{{ selectedAccount.type }} Statements</h2>
+      <p class="modal-sub">{{ selectedAccount.number }} — Recent Transactions</p>
+
+      <div class="stmt-table-wrap">
+        <table class="stmt-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of state.transactions | slice:0:10">
+              <td class="mono">{{ t.date }}</td>
+              <td class="desc">{{ t.description }}</td>
+              <td><span [class.badge-credit]="t.type === 0" [class.badge-debit]="t.type === 1">{{ t.type === 0 ? 'Credit' : 'Debit' }}</span></td>
+              <td class="mono right">${{ t.amount | number:'1.2-2' }}</td>
+              <td class="mono right green">{{ t.balance }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="activeModal === 'manage' && selectedAccount">
+      <h2 class="modal-title">Manage {{ selectedAccount.type }}</h2>
+      <p class="modal-sub">{{ selectedAccount.number }}</p>
+
+      <div class="manage-section">
+        <div class="manage-row">
+          <div class="manage-text">
+            <div class="manage-label">Alert Threshold ($)</div>
+            <div class="manage-desc">Get notified when transaction exceeds this amount</div>
+          </div>
+          <div class="threshold-control">
+            <input type="number" class="threshold-input" [(ngModel)]="editThreshold" min="0" step="50" />
+            <button class="btn-save" (click)="saveThreshold()">Save</button>
+          </div>
+        </div>
+
+        <div class="manage-row">
+          <div class="manage-text">
+            <div class="manage-label">Account Status</div>
+            <div class="manage-desc">
+              {{ selectedAccount.frozen ? 'Account is frozen — no transactions allowed' : 'Account is active and operational' }}
+            </div>
+          </div>
+          <button class="btn-action-manage" [class.danger]="!selectedAccount.frozen" [class.safe]="selectedAccount.frozen" (click)="toggleFreeze()">
+            {{ selectedAccount.frozen ? 'Unfreeze Account' : 'Freeze Account' }}
+          </button>
+        </div>
+
+        <div class="manage-row">
+          <div class="manage-text">
+            <div class="manage-label">Download Statement</div>
+            <div class="manage-desc">Download your last 90 days as PDF</div>
+          </div>
+          <button class="btn-action-manage">Download PDF</button>
+        </div>
+
+        <div class="manage-row danger-row">
+          <div class="manage-text">
+            <div class="manage-label close-label">Close Account</div>
+            <div class="manage-desc">This action is permanent and cannot be undone</div>
+          </div>
+          <button class="btn-action-manage close-btn">Close Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

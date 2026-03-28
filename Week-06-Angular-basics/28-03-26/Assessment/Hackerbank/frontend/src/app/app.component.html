@@ -1,0 +1,292 @@
+<div class="app-wrapper">
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="hb-logo">HB</div>
+        <div class="brand-text">
+          <span class="brand-name">HackerBank</span>
+          <span class="brand-tagline">Secure. Simple. Smart.</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">Dashboard</a>
+        <a routerLink="/accounts" routerLinkActive="active" class="nav-link">Accounts</a>
+        <a routerLink="/transfers" routerLinkActive="active" class="nav-link">Transfers</a>
+        <a routerLink="/payments" routerLinkActive="active" class="nav-link">Payments</a>
+
+        <div class="user-info" (click)="toggleProfile()">
+          <div class="user-avatar">ST</div>
+          <span class="user-name">Saksham Tapadia</span>
+          <span class="chevron" [class.open]="profileOpen">&#9660;</span>
+          <span class="notif-badge" *ngIf="state.unreadCount > 0">{{ state.unreadCount }}</span>
+
+          <div class="profile-dropdown" *ngIf="profileOpen" (click)="$event.stopPropagation()">
+            <div class="profile-header">
+              <div class="profile-avatar-lg">ST</div>
+              <div class="profile-details">
+                <span class="profile-name">Saksham Tapadia</span>
+                <span class="profile-email">saksham.tapadia&#64;hackerbank.com</span>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item" (click)="openModal('profile')">
+                <span class="di-icon icon-profile"></span> My Profile
+              </li>
+              <li class="dropdown-item" (click)="openModal('settings')">
+                <span class="di-icon icon-settings"></span> Account Settings
+              </li>
+              <li class="dropdown-item" (click)="openModal('security')">
+                <span class="di-icon icon-security"></span> Security
+              </li>
+              <li class="dropdown-item" (click)="openModal('notifications')">
+                <span class="di-icon icon-notif"></span> Notifications
+                <span class="badge-count" *ngIf="state.unreadCount > 0">{{ state.unreadCount }}</span>
+              </li>
+            </ul>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item signout" (click)="profileOpen = false">
+              <span class="di-icon icon-signout"></span> Sign Out
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <div class="main-container">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <span>&copy; {{ currentYear }} HackerBank. All rights reserved.</span>
+      <span class="footer-links">
+        <a (click)="openModal('privacy')">Privacy Policy</a>
+        <a (click)="openModal('terms')">Terms of Service</a>
+        <a (click)="openModal('contact')">Contact Us</a>
+      </span>
+    </div>
+  </footer>
+</div>
+
+<div class="modal-overlay" *ngIf="activeModal" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()">&#10005;</button>
+
+    <div *ngIf="activeModal === 'profile'">
+      <h2 class="modal-title">My Profile</h2>
+      <p class="modal-date">Personal information and preferences</p>
+      <div class="profile-modal-header">
+        <div class="profile-modal-avatar">ST</div>
+        <div>
+          <div class="pma-name">Saksham Tapadia</div>
+          <div class="pma-email">saksham.tapadia&#64;hackerbank.com</div>
+          <span class="tier-badge">Premium</span>
+        </div>
+      </div>
+      <div class="field-list">
+        <div class="field-row">
+          <div class="field-label">Full Name</div>
+          <div class="field-value">Saksham Tapadia</div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Email</div>
+          <div class="field-value">saksham.tapadia&#64;hackerbank.com</div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Phone</div>
+          <div class="field-value">+1 (415) 555-0192</div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Address</div>
+          <div class="field-value">123 HackerBank Plaza, San Francisco, CA 94105</div>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Member Since</div>
+          <div class="field-value">March 15, 2017</div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeModal === 'settings'">
+      <h2 class="modal-title">Account Settings</h2>
+      <p class="modal-date">Manage your preferences</p>
+      <div class="setting-list">
+        <div class="setting-row">
+          <div class="setting-text">
+            <div class="setting-name">Email Notifications</div>
+            <div class="setting-desc">Receive transaction alerts via email</div>
+          </div>
+          <div class="toggle on"></div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-text">
+            <div class="setting-name">SMS Alerts</div>
+            <div class="setting-desc">Get text messages for large transactions</div>
+          </div>
+          <div class="toggle on"></div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-text">
+            <div class="setting-name">Paperless Statements</div>
+            <div class="setting-desc">Receive statements digitally only</div>
+          </div>
+          <div class="toggle on"></div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-text">
+            <div class="setting-name">Marketing Emails</div>
+            <div class="setting-desc">Receive offers and product updates</div>
+          </div>
+          <div class="toggle off"></div>
+        </div>
+        <div class="setting-row">
+          <div class="setting-text">
+            <div class="setting-name">Dark Mode</div>
+            <div class="setting-desc">Switch to dark theme across all pages</div>
+          </div>
+          <div class="toggle" [class.on]="state.darkMode" [class.off]="!state.darkMode" (click)="state.toggleDarkMode()"></div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeModal === 'security'">
+      <h2 class="modal-title">Security</h2>
+      <p class="modal-date">Keep your account safe</p>
+      <div class="setting-list">
+        <div class="setting-row">
+          <div class="sec-dot green"></div>
+          <div class="setting-text">
+            <div class="setting-name">Two-Factor Authentication</div>
+            <div class="setting-desc">Active via Authenticator App</div>
+          </div>
+          <span class="sec-badge on">ON</span>
+        </div>
+        <div class="setting-row">
+          <div class="sec-dot green"></div>
+          <div class="setting-text">
+            <div class="setting-name">Last Login</div>
+            <div class="setting-desc">Today at 9:14 AM — Chrome, Windows 11</div>
+          </div>
+        </div>
+        <div class="setting-row">
+          <div class="sec-dot orange"></div>
+          <div class="setting-text">
+            <div class="setting-name">Password Strength</div>
+            <div class="setting-desc">Strong — last changed 30 days ago</div>
+          </div>
+          <button class="btn-sec">Change</button>
+        </div>
+        <div class="setting-row">
+          <div class="sec-dot green"></div>
+          <div class="setting-text">
+            <div class="setting-name">Active Sessions</div>
+            <div class="setting-desc">1 active session — this device</div>
+          </div>
+          <button class="btn-sec danger">Revoke All</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeModal === 'notifications'">
+      <div class="notif-modal-header">
+        <div>
+          <h2 class="modal-title">Notifications</h2>
+          <p class="modal-date">{{ state.unreadCount }} unread</p>
+        </div>
+        <button class="btn-mark-read" (click)="state.markAllRead()" *ngIf="state.unreadCount > 0">Mark all read</button>
+      </div>
+      <div class="notif-list">
+        <div class="notif-item" *ngFor="let n of state.notifications; let i = index"
+             [class.unread]="n.unread"
+             (click)="onNotifClick(i)">
+          <div class="notif-dot" [class.credit]="n.icon === 'credit'" [class.debit]="n.icon === 'debit'" [class.info]="n.icon === 'info'"></div>
+          <div class="notif-content">
+            <div class="notif-title">{{ n.title }}</div>
+            <div class="notif-msg">{{ n.message }}</div>
+            <div class="notif-time">{{ n.time }}</div>
+          </div>
+          <div class="unread-dot" *ngIf="n.unread"></div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeModal === 'privacy'">
+      <h2 class="modal-title">Privacy Policy</h2>
+      <p class="modal-date">Effective: January 1, 2024</p>
+      <div class="modal-body">
+        <h4>1. Information We Collect</h4>
+        <p>We collect information you provide directly, including name, email address, phone number, and financial account details necessary to provide our banking services.</p>
+        <h4>2. How We Use Your Information</h4>
+        <p>Your information is used to process transactions, prevent fraud, comply with legal obligations, and improve our services. We do not sell your personal data to third parties.</p>
+        <h4>3. Data Security</h4>
+        <p>HackerBank uses 256-bit SSL encryption, multi-factor authentication, and regular security audits to protect your data. All data is stored in SOC 2 compliant data centers.</p>
+        <h4>4. Cookies</h4>
+        <p>We use strictly necessary cookies to keep you logged in and session cookies that expire when you close your browser. No tracking or advertising cookies are used.</p>
+        <h4>5. Your Rights</h4>
+        <p>You may request access to, correction of, or deletion of your personal data at any time by contacting saksham.tapadia&#64;hackerbank.com.</p>
+      </div>
+    </div>
+
+    <div *ngIf="activeModal === 'terms'">
+      <h2 class="modal-title">Terms of Service</h2>
+      <p class="modal-date">Last updated: January 1, 2024</p>
+      <div class="modal-body">
+        <h4>1. Acceptance of Terms</h4>
+        <p>By accessing or using HackerBank services, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+        <h4>2. Account Responsibilities</h4>
+        <p>You are responsible for maintaining the confidentiality of your account credentials. You agree to notify us immediately of any unauthorized use of your account.</p>
+        <h4>3. Permitted Use</h4>
+        <p>HackerBank services are for personal and business banking only. You may not use our platform for illegal transactions, money laundering, or any activity that violates applicable law.</p>
+        <h4>4. Transaction Limits</h4>
+        <p>Daily transfer limits apply based on account type. HackerBank reserves the right to hold, delay, or reverse transactions suspected of fraud.</p>
+        <h4>5. Limitation of Liability</h4>
+        <p>HackerBank is not liable for indirect, incidental, or consequential damages arising from your use of our services.</p>
+        <h4>6. Governing Law</h4>
+        <p>These terms are governed by the laws of the State of California, without regard to conflict of law principles.</p>
+      </div>
+    </div>
+
+    <div *ngIf="activeModal === 'contact'">
+      <h2 class="modal-title">Contact Us</h2>
+      <p class="modal-date">We are here to help, 24/7</p>
+      <div class="contact-body">
+        <div class="contact-item">
+          <div class="contact-icon-box email-icon"></div>
+          <div>
+            <div class="contact-label">Email Support</div>
+            <a class="contact-value link" href="mailto:saksham.tapadia@hackerbank.com">saksham.tapadia&#64;hackerbank.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon-box phone-icon"></div>
+          <div>
+            <div class="contact-label">Phone Support</div>
+            <div class="contact-value">+1 (800) 422-5374</div>
+            <div class="contact-sub">Mon - Fri, 8am - 8pm PST</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon-box loc-icon"></div>
+          <div>
+            <div class="contact-label">Head Office</div>
+            <div class="contact-value">123 HackerBank Plaza, Suite 400</div>
+            <div class="contact-sub">San Francisco, CA 94105, United States</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon-box chat-icon"></div>
+          <div>
+            <div class="contact-label">Live Chat</div>
+            <div class="contact-value">Available in the app</div>
+            <div class="contact-sub">Average response time: 2 minutes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

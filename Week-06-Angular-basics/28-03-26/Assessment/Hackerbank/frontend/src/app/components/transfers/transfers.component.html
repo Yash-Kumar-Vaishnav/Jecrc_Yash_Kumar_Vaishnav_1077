@@ -1,0 +1,69 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Transfer Funds</h1>
+    <p class="page-subtitle">Move money between your accounts instantly</p>
+  </div>
+</div>
+
+<div class="transfer-layout">
+  <div class="transfer-card" *ngIf="!submitted">
+    <div class="form-group">
+      <label class="form-label">From Account</label>
+      <select class="form-select" [(ngModel)]="fromAccount">
+        <option value="">Select account</option>
+        <option *ngFor="let acc of state.accounts" [value]="acc.label">{{ acc.label }} &mdash; {{ state.formatBalance(acc.balance) }}</option>
+      </select>
+    </div>
+
+    <div class="arrow-row">
+      <div class="arrow-line"></div>
+      <div class="arrow-icon">&#8595;</div>
+      <div class="arrow-line"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">To Account</label>
+      <select class="form-select" [(ngModel)]="toAccount">
+        <option value="">Select account</option>
+        <option *ngFor="let acc of state.accounts" [value]="acc.label">{{ acc.label }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Amount ($)</label>
+      <input type="number" class="form-input" [(ngModel)]="amount" placeholder="0.00" min="0.01" step="0.01" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Memo (optional)</label>
+      <input type="text" class="form-input" [(ngModel)]="memo" placeholder="e.g. Monthly savings" maxlength="100" />
+    </div>
+
+    <div class="error-msg" *ngIf="error">{{ error }}</div>
+
+    <div class="form-actions">
+      <button class="btn-secondary" (click)="reset()">Clear</button>
+      <button class="btn-primary" (click)="submit()">Transfer Now</button>
+    </div>
+  </div>
+
+  <div class="success-card" *ngIf="submitted">
+    <div class="success-icon">&#10003;</div>
+    <h2 class="success-title">Transfer Complete</h2>
+    <p class="success-msg">
+      <strong>{{ state.formatBalance(amount!) }}</strong> transferred from
+      <strong>{{ fromAccount }}</strong> to <strong>{{ toAccount }}</strong>.
+    </p>
+    <p class="success-note">Balance and transaction history have been updated.</p>
+    <button class="btn-primary" (click)="reset()">Make Another Transfer</button>
+  </div>
+
+  <div class="info-panel">
+    <h3 class="info-title">Current Balances</h3>
+    <div class="balance-row" *ngFor="let acc of state.accounts">
+      <span class="balance-acc">{{ acc.label }}</span>
+      <span class="balance-val" [class.negative]="acc.balance < 0">{{ state.formatBalance(acc.balance) }}</span>
+    </div>
+    <div class="info-note">Transfers are processed immediately with no fees.</div>
+  </div>
+</div>

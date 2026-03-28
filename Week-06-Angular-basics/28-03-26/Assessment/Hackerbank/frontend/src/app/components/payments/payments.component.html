@@ -1,0 +1,81 @@
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Pay Bills</h1>
+    <p class="page-subtitle">Schedule and manage your bill payments</p>
+  </div>
+</div>
+
+<div class="payments-layout">
+  <div class="left-panel">
+    <h3 class="section-title">Select Payee</h3>
+    <div class="payees-grid">
+      <div class="payee-card"
+           *ngFor="let payee of payees"
+           [class.selected]="selectedPayee === payee.name"
+           (click)="selectPayee(payee.name)">
+        <div class="payee-logo">{{ payee.logo }}</div>
+        <div class="payee-info">
+          <span class="payee-name">{{ payee.name }}</span>
+          <span class="payee-category">{{ payee.category }}</span>
+        </div>
+        <span class="check-mark" *ngIf="selectedPayee === payee.name">&#10003;</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="payment-form" *ngIf="!submitted">
+      <h3 class="section-title">Payment Details</h3>
+
+      <div class="selected-payee-display" *ngIf="selectedPayee">
+        Paying: <strong>{{ selectedPayee }}</strong>
+      </div>
+      <div class="selected-payee-display placeholder" *ngIf="!selectedPayee">
+        No payee selected
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Pay From</label>
+        <select class="form-select" [(ngModel)]="fromAccount">
+          <option value="">Select account</option>
+          <option *ngFor="let acc of payFromAccounts" [value]="acc.label">
+            {{ acc.label }} &mdash; {{ state.formatBalance(acc.available) }} available
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Amount ($)</label>
+        <input type="number" class="form-input" [(ngModel)]="amount" placeholder="0.00" min="0.01" step="0.01" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Payment Date</label>
+        <input type="date" class="form-input" [(ngModel)]="paymentDate" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Note (optional)</label>
+        <input type="text" class="form-input" [(ngModel)]="note" placeholder="e.g. January bill" maxlength="100" />
+      </div>
+
+      <div class="error-msg" *ngIf="error">{{ error }}</div>
+
+      <div class="form-actions">
+        <button class="btn-secondary" (click)="reset()">Clear</button>
+        <button class="btn-primary" (click)="submit()">Schedule Payment</button>
+      </div>
+    </div>
+
+    <div class="success-card" *ngIf="submitted">
+      <div class="success-icon">&#10003;</div>
+      <h2 class="success-title">Payment Scheduled</h2>
+      <p class="success-msg">
+        <strong>{{ state.formatBalance(amount!) }}</strong> to <strong>{{ selectedPayee }}</strong>
+        from <strong>{{ fromAccount }}</strong> on {{ paymentDate }}.
+      </p>
+      <p class="success-note">Balance and transaction history updated.</p>
+      <button class="btn-primary" (click)="reset()">Schedule Another</button>
+    </div>
+  </div>
+</div>

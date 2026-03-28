@@ -1,0 +1,252 @@
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2e3238;
+  margin-bottom: 4px;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  color: #777;
+}
+
+.payments-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2e3238;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 14px;
+}
+
+.payees-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.payee-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.payee-card:hover {
+  border-color: #5a9e6f;
+  box-shadow: 0 2px 8px rgba(90,158,111,0.1);
+}
+
+.payee-card.selected {
+  border-color: #5a9e6f;
+  background: #f4fbf6;
+  box-shadow: 0 2px 8px rgba(90,158,111,0.15);
+}
+
+.payee-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #4a90a4, #2c6e8a);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.payee-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.payee-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2e3238;
+}
+
+.payee-category {
+  font-size: 12px;
+  color: #999;
+}
+
+.check-mark {
+  font-size: 18px;
+  color: #5a9e6f;
+  font-weight: 700;
+}
+
+.payment-form {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e8e8e8;
+  padding: 24px;
+}
+
+.selected-payee-display {
+  font-size: 13px;
+  color: #444;
+  background: #f4fbf6;
+  border: 1px solid #b7dfbf;
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+}
+
+.selected-payee-display.placeholder {
+  color: #aaa;
+  background: #fafafa;
+  border-color: #e0e0e0;
+  font-style: italic;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 6px;
+}
+
+.form-select,
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  transition: border-color 0.2s;
+}
+
+.form-select:focus,
+.form-input:focus {
+  outline: none;
+  border-color: #5a9e6f;
+  box-shadow: 0 0 0 2px rgba(90,158,111,0.15);
+}
+
+.error-msg {
+  background: #fde8e8;
+  color: #9b2335;
+  border: 1px solid #f5b8b8;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-primary {
+  padding: 10px 22px;
+  background: #5a9e6f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #4a8a5e;
+}
+
+.btn-secondary {
+  padding: 10px 18px;
+  background: #fff;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #f0f0f0;
+}
+
+.success-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  border: 1px solid #b7dfbf;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.success-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #5a9e6f;
+  color: #fff;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.success-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2e3238;
+  margin-bottom: 10px;
+}
+
+.success-msg {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.success-note {
+  font-size: 12px;
+  color: #5a9e6f;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .payments-layout {
+    grid-template-columns: 1fr;
+  }
+}

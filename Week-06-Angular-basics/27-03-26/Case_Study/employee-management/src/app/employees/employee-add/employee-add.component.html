@@ -1,0 +1,16 @@
+<section class="form-page">
+	<form class="form-card" (ngSubmit)="save()">
+		<h2>Add Employee</h2>
+
+		<label for="name">Name</label>
+		<input id="name" name="name" [(ngModel)]="employee.name" required />
+
+		<label for="role">Role</label>
+		<input id="role" name="role" [(ngModel)]="employee.role" required />
+
+		<div class="actions">
+			<button type="submit" class="btn primary">Save</button>
+			<a routerLink="/employees" class="btn">Cancel</a>
+		</div>
+	</form>
+</section>

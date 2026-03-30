@@ -1,0 +1,42 @@
+<section class="page">
+	<div class="head">
+		<h2>Employee List</h2>
+		<a routerLink="/employees/add" class="btn primary">Add Employee</a>
+	</div>
+
+	<div class="search-row">
+		<input
+			type="text"
+			[(ngModel)]="searchTerm"
+			(input)="onSearch()"
+			placeholder="Search by name or role"
+		/>
+	</div>
+
+	<table *ngIf="employees.length > 0; else noData">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Role</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let emp of employees">
+				<td>{{ emp.id }}</td>
+				<td>{{ emp.name }}</td>
+				<td>{{ emp.role }}</td>
+				<td class="actions">
+					<a class="btn" [routerLink]="['/employees/view', emp.id]">View</a>
+					<a class="btn" [routerLink]="['/employees/edit', emp.id]">Edit</a>
+					<button class="btn danger" (click)="deleteEmployee(emp.id)">Delete</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ng-template #noData>
+		<p class="empty">No employees found.</p>
+	</ng-template>
+</section>

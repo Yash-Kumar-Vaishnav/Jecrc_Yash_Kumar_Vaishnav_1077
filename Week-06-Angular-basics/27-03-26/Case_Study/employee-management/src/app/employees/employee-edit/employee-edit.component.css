@@ -1,0 +1,50 @@
+.form-page {
+	max-width: 700px;
+	margin: 24px auto;
+	padding: 0 12px;
+}
+
+.form-card {
+	background: #fff;
+	border: 1px solid #dbe2ee;
+	border-radius: 10px;
+	padding: 16px;
+	display: grid;
+	gap: 10px;
+}
+
+label {
+	font-size: 14px;
+}
+
+input {
+	padding: 9px;
+	border: 1px solid #c6d0e0;
+	border-radius: 8px;
+}
+
+input[readonly] {
+	background: #f3f6fb;
+}
+
+.actions {
+	display: flex;
+	gap: 8px;
+	margin-top: 8px;
+}
+
+.btn {
+	text-decoration: none;
+	border: 1px solid #b8c5db;
+	background: #eef3fb;
+	color: #1a2b49;
+	padding: 8px 12px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn.primary {
+	background: #1f6feb;
+	border-color: #1f6feb;
+	color: #fff;
+}

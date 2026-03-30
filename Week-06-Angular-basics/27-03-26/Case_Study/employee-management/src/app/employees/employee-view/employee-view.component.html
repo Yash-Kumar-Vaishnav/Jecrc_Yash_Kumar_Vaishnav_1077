@@ -1,0 +1,14 @@
+<section class="view-page" *ngIf="employee">
+	<div class="card">
+		<h2>Employee Details</h2>
+
+		<p><strong>ID:</strong> {{ employee.id }}</p>
+		<p><strong>Name:</strong> {{ employee.name }}</p>
+		<p><strong>Role:</strong> {{ employee.role }}</p>
+
+		<div class="actions">
+			<a routerLink="/employees" class="btn">Back</a>
+			<a [routerLink]="['/employees/edit', employee.id]" class="btn primary">Edit</a>
+		</div>
+	</div>
+</section>

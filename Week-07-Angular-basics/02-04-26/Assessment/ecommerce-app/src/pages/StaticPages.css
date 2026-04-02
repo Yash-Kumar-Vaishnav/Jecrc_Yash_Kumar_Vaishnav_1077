@@ -1,0 +1,39 @@
+.static-page { display: flex; flex-direction: column; gap: 32px; }
+
+.page-hero { margin-bottom: 8px; }
+.page-hero .badge { margin-bottom: 12px; display: inline-block; }
+.page-hero h1 { font-size: 40px; margin-bottom: 10px; }
+.page-hero p { font-size: 16px; color: var(--muted); }
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+.icon-box { font-size: 28px; margin-bottom: 12px; }
+.card h3 { font-size: 17px; margin-bottom: 8px; }
+.card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+.mission-card h2 { font-size: 24px; margin-bottom: 14px; }
+.mission-card p { font-size: 15px; color: var(--muted); line-height: 1.8; max-width: 680px; }
+
+.contact-layout { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: start; }
+@media (max-width: 700px) { .contact-layout { grid-template-columns: 1fr; } }
+
+.contact-form h3 { font-size: 20px; margin-bottom: 20px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: var(--ink); }
+.form-input {
+  width: 100%; padding: 10px 14px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 14px; background: var(--cream); color: var(--ink);
+  transition: border-color 0.15s; outline: none; resize: vertical;
+}
+.form-input:focus { border-color: var(--gold); }
+.form-input::placeholder { color: #bbb; }
+
+.contact-info { display: flex; flex-direction: column; gap: 14px; min-width: 240px; }
+.contact-card { display: flex; align-items: center; gap: 14px; padding: 16px 20px; }
+.contact-icon { font-size: 20px; }
+.contact-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.contact-value { font-size: 14px; font-weight: 500; margin-top: 2px; }

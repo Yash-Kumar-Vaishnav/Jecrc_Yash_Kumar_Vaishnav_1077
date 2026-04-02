@@ -1,0 +1,57 @@
+.auth-form { max-width: 380px; width: 100%; }
+
+.auth-form-header { margin-bottom: 32px; }
+.auth-form-header h1 { font-size: 32px; margin-bottom: 6px; }
+.auth-form-header p { font-size: 15px; color: var(--muted); }
+
+.auth-error {
+  background: #fdf0ec; border: 1px solid #f4c4b4;
+  color: var(--rust); font-size: 13px;
+  padding: 10px 14px; border-radius: 8px; margin-bottom: 16px;
+}
+
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: flex; justify-content: space-between;
+  font-size: 13px; font-weight: 500; margin-bottom: 6px;
+}
+.label-link { font-size: 12px; color: var(--gold-dark); font-weight: 400; }
+.label-link:hover { text-decoration: underline; }
+
+.form-input {
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 14px; background: #fff; color: var(--ink);
+  transition: border-color 0.15s; outline: none;
+}
+.form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(200,169,110,0.12); }
+.form-input::placeholder { color: #ccc; }
+
+.auth-submit {
+  width: 100%; padding: 12px; font-size: 15px;
+  margin-top: 4px; position: relative;
+}
+.auth-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none !important; }
+
+.spinner {
+  display: inline-block; width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.auth-hint {
+  display: flex; align-items: center; gap: 8px;
+  background: #fdf8ef; border: 1px solid var(--gold-light);
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 12px; color: var(--gold-dark); margin-top: 16px;
+}
+
+.auth-switch { text-align: center; font-size: 14px; color: var(--muted); margin-top: 20px; }
+.auth-switch a { color: var(--gold-dark); font-weight: 500; }
+.auth-switch a:hover { text-decoration: underline; }
+
+.auth-terms { font-size: 12px; color: var(--muted); text-align: center; margin-top: 16px; line-height: 1.6; }
+.auth-terms a { color: var(--gold-dark); }

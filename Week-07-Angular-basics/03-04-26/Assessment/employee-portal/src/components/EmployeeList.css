@@ -1,0 +1,32 @@
+.employee-list {
+  margin-top: 2rem;
+}
+
+.employee-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employee-list th, .employee-list td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.employee-list th {
+  background-color: #f2f2f2;
+}
+
+.employee-list button {
+  margin-right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.employee-list button:hover {
+  background-color: #0056b3;
+}

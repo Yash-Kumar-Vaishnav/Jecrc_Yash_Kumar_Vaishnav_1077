@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useLang } from '../context/LanguageContext';
 import './Home.css';
 
 const featured = [
@@ -9,40 +10,36 @@ const featured = [
 ];
 
 function Home() {
+  const { t } = useLang();
   return (
     <div className="home fade-up">
       <section className="hero">
         <div className="hero-text">
-          <span className="badge badge-gold">New Season 2025</span>
-          <h1>Luxury, <em>redefined</em> for the modern era.</h1>
-          <p>Discover handpicked collections from the world's finest artisans and design houses.</p>
+          <span className="badge badge-gold">{t.home.badge}</span>
+          <h1>{t.home.heroTitle}</h1>
+          <p>{t.home.heroSub}</p>
           <div className="hero-actions">
-            <Link to="/products" className="btn btn-primary">Shop Collection</Link>
-            <Link to="/about" className="btn btn-outline">Our Story</Link>
+            <Link to="/products" className="btn btn-primary">{t.home.shopBtn}</Link>
+            <Link to="/about" className="btn btn-outline">{t.home.storyBtn}</Link>
           </div>
         </div>
         <div className="hero-visual">
           <div className="hero-card">
             <div className="hero-icon">✦</div>
-            <p className="hero-card-sub">Featured this season</p>
-            <p className="hero-card-title">Noir Collection</p>
+            <p className="hero-card-sub">{t.home.featuredSeason}</p>
+            <p className="hero-card-title">{t.home.noirCollection}</p>
           </div>
         </div>
       </section>
 
       <section className="featured-section">
         <div className="section-head">
-          <h2>Featured Products</h2>
-          <Link to="/products" className="see-all">View all →</Link>
+          <h2>{t.home.featuredProducts}</h2>
+          <Link to="/products" className="see-all">{t.home.viewAll}</Link>
         </div>
         <div className="product-grid">
           {featured.map((p, i) => (
-            <Link
-              to={`/products/${p.id}`}
-              key={p.id}
-              className="product-card fade-up"
-              style={{ animationDelay: `${i * 0.08}s` }}
-            >
+            <Link to={`/products/${p.id}`} key={p.id} className="product-card fade-up" style={{ animationDelay: `${i * 0.08}s` }}>
               <div className="product-thumb">{p.img}</div>
               <div className="product-info">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -61,9 +58,9 @@ function Home() {
 
       <section className="promo-banner">
         <div className="promo-content">
-          <h2>Members get 20% off every order</h2>
-          <p>Join ShopElite today and unlock exclusive pricing, early access, and free global shipping.</p>
-          <Link to="/register" className="btn btn-gold">Join Now — It's Free</Link>
+          <h2>{t.home.promoTitle}</h2>
+          <p>{t.home.promoSub}</p>
+          <Link to="/register" className="btn btn-gold">{t.home.joinBtn}</Link>
         </div>
       </section>
     </div>

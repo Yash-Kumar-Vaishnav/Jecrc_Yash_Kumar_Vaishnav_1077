@@ -94,3 +94,26 @@ h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
 .badge-gold  { background: #fdf3e0; color: var(--gold-dark); border: 1px solid var(--gold-light); }
 .badge-green { background: #edf5f0; color: #3a7a55; border: 1px solid #b8ddc8; }
 .badge-rust  { background: #fdf0ec; color: var(--rust); border: 1px solid #f4c4b4; }
+
+/* ── RTL (Arabic) support ── */
+[dir="rtl"] .main-nav,
+[dir="rtl"] .header-actions,
+[dir="rtl"] .hero-actions,
+[dir="rtl"] .footer-links,
+[dir="rtl"] .dash-two-col,
+[dir="rtl"] .stats-grid { direction: rtl; }
+
+[dir="rtl"] .main-sidebar { border-right: none; border-left: 1px solid var(--border); padding-right: 0; padding-left: 24px; }
+[dir="rtl"] .dash-sidebar { direction: rtl; }
+[dir="rtl"] .dash-nav-link { flex-direction: row-reverse; }
+[dir="rtl"] .quick-link { flex-direction: row-reverse; }
+[dir="rtl"] .quick-arrow { margin-left: 0; margin-right: auto; transform: scaleX(-1); }
+[dir="rtl"] .detail-breadcrumb { direction: rtl; }
+[dir="rtl"] .stat-top { flex-direction: row-reverse; }
+[dir="rtl"] .card-head { flex-direction: row-reverse; }
+[dir="rtl"] .review-header { flex-direction: row-reverse; }
+[dir="rtl"] .review-stars { margin-left: 0; margin-right: auto; }
+[dir="rtl"] .lang-dropdown { right: auto; left: 0; }
+[dir="rtl"] .toggle-row { flex-direction: row-reverse; }
+[dir="rtl"] .settings-avatar-row { flex-direction: row-reverse; }
+[dir="rtl"] body { font-family: 'DM Sans', 'Noto Sans Arabic', sans-serif; }

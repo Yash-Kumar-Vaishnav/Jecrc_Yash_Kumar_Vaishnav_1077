@@ -1,76 +1,55 @@
+import { useLang } from '../context/LanguageContext';
 import './StaticPages.css';
 
 export function About() {
+  const { t } = useLang();
   return (
     <div className="static-page fade-up">
       <div className="page-hero">
-        <span className="badge badge-gold">Est. 2018</span>
-        <h1>About ShopElite</h1>
-        <p>We curate the world's finest goods so you don't have to.</p>
+        <span className="badge badge-gold">{t.about.badge}</span>
+        <h1>{t.about.title}</h1>
+        <p>{t.about.sub}</p>
       </div>
       <div className="content-grid">
-        <div className="card">
-          <div className="icon-box">🌍</div>
-          <h3>Global Reach</h3>
-          <p>Operating in 120+ countries with local warehouse hubs for fast, reliable delivery to your doorstep.</p>
-        </div>
-        <div className="card">
-          <div className="icon-box">✦</div>
-          <h3>Curation First</h3>
-          <p>Every product is vetted by our in-house experts. We list fewer items so each one earns your attention.</p>
-        </div>
-        <div className="card">
-          <div className="icon-box">🔒</div>
-          <h3>Trusted & Secure</h3>
-          <p>Bank-grade encryption and buyer protection on every order. Shop with complete confidence.</p>
-        </div>
+        <div className="card"><div className="icon-box">🌍</div><h3>{t.about.globalTitle}</h3><p>{t.about.globalText}</p></div>
+        <div className="card"><div className="icon-box">✦</div><h3>{t.about.curationTitle}</h3><p>{t.about.curationText}</p></div>
+        <div className="card"><div className="icon-box">🔒</div><h3>{t.about.trustTitle}</h3><p>{t.about.trustText}</p></div>
       </div>
       <div className="card mission-card">
-        <h2>Our Mission</h2>
-        <p>ShopElite was founded on a simple belief: that luxury should be accessible, trustworthy, and joyful. We bridge the gap between artisans and the consumers who truly appreciate their craft — building lasting relationships built on quality, integrity, and an unwavering eye for the exceptional.</p>
+        <h2>{t.about.missionTitle}</h2>
+        <p>{t.about.missionText}</p>
       </div>
     </div>
   );
 }
 
 export function Contact() {
+  const { t } = useLang();
   return (
     <div className="static-page fade-up">
       <div className="page-hero">
-        <span className="badge badge-gold">We're Here</span>
-        <h1>Contact Us</h1>
-        <p>Our team responds within 2 business hours.</p>
+        <span className="badge badge-gold">{t.contact.badge}</span>
+        <h1>{t.contact.title}</h1>
+        <p>{t.contact.sub}</p>
       </div>
       <div className="contact-layout">
         <div className="contact-form card">
-          <h3>Send a message</h3>
-          <div className="form-group">
-            <label>Your Name</label>
-            <input type="text" className="form-input" placeholder="Jane Doe" />
-          </div>
-          <div className="form-group">
-            <label>Email Address</label>
-            <input type="email" className="form-input" placeholder="jane@example.com" />
-          </div>
-          <div className="form-group">
-            <label>Message</label>
-            <textarea className="form-input" rows="5" placeholder="How can we help?" />
-          </div>
-          <button className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
+          <h3>{t.contact.title}</h3>
+          <div className="form-group"><label>{t.contact.nameLabel}</label><input type="text" className="form-input" placeholder="Jane Doe" /></div>
+          <div className="form-group"><label>{t.contact.emailLabel}</label><input type="email" className="form-input" placeholder="jane@example.com" /></div>
+          <div className="form-group"><label>{t.contact.messageLabel}</label><textarea className="form-input" rows="5" placeholder={t.contact.messagePlaceholder} /></div>
+          <button className="btn btn-primary" style={{ width: '100%' }}>{t.contact.sendBtn}</button>
         </div>
         <div className="contact-info">
           {[
-            { icon: '📧', label: 'Email', value: 'support@shopelite.com' },
-            { icon: '📞', label: 'Phone', value: '+1 (800) 555-0199' },
-            { icon: '⏰', label: 'Hours', value: 'Mon–Fri, 9am–6pm EST' },
-            { icon: '📍', label: 'Address', value: '200 Park Ave, New York, NY 10166' },
+            { icon: '📧', label: t.contact.emailContact, value: 'support@shopelite.com' },
+            { icon: '📞', label: t.contact.phone, value: '+1 (800) 555-0199' },
+            { icon: '⏰', label: t.contact.hours, value: t.contact.hoursValue },
+            { icon: '📍', label: t.contact.address, value: '200 Park Ave, New York, NY' },
           ].map(item => (
             <div key={item.label} className="card contact-card">
               <span className="contact-icon">{item.icon}</span>
-              <div>
-                <p className="contact-label">{item.label}</p>
-                <p className="contact-value">{item.value}</p>
-              </div>
+              <div><p className="contact-label">{item.label}</p><p className="contact-value">{item.value}</p></div>
             </div>
           ))}
         </div>

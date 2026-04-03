@@ -1,11 +1,15 @@
+import { useLang } from '../../context/LanguageContext';
 import './Products.css';
 
 const reviewsList = [
-  { name: "Aisha P.", rating: 5, date: "Mar 2025", text: "Absolutely stunning quality." },
-  { name: "Marco R.", rating: 5, date: "Feb 2025", text: "Worth every penny. I've received so many compliments since purchasing." },
+  { name: 'Aisha P.',  rating: 5, date: 'Mar 2025', text: 'Absolutely stunning quality. Exceeded every expectation — feels like it will last a lifetime. The packaging alone was an experience.' },
+  { name: 'Marco R.',  rating: 5, date: 'Feb 2025', text: 'Worth every penny. The craftsmanship is impeccable. I\'ve received so many compliments since purchasing.' },
+  { name: 'Sophie D.', rating: 4, date: 'Jan 2025', text: 'Beautiful product and fast shipping. Took off one star only because the sizing ran slightly large for me.' },
+  { name: 'Kenji T.',  rating: 5, date: 'Dec 2024', text: 'ShopElite continues to deliver. This is my third purchase and the quality bar has never dropped once.' },
 ];
 
 export function Reviews() {
+  const { t } = useLang();
   const avg = (reviewsList.reduce((a, r) => a + r.rating, 0) / reviewsList.length).toFixed(1);
 
   return (
@@ -15,10 +19,12 @@ export function Reviews() {
           <span className="avg-num">{avg}</span>
           <div>
             <div style={{ color: 'var(--gold)', fontSize: 18, letterSpacing: 2 }}>{'★'.repeat(5)}</div>
-            <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: 2 }}>{reviewsList.length} verified reviews</p>
+            <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: 2 }}>
+              {reviewsList.length} {t.products.verifiedReviews}
+            </p>
           </div>
         </div>
-        <button className="btn btn-outline" style={{ fontSize: 13 }}>Write a Review</button>
+        <button className="btn btn-outline" style={{ fontSize: 13 }}>{t.products.writeReview}</button>
       </div>
 
       <div className="reviews-list">
@@ -30,7 +36,9 @@ export function Reviews() {
                 <p className="review-name">{r.name}</p>
                 <p className="review-date">{r.date}</p>
               </div>
-              <div className="review-stars">{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</div>
+              <div className="review-stars">
+                {'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}
+              </div>
             </div>
             <p className="review-text">{r.text}</p>
           </div>
@@ -41,21 +49,23 @@ export function Reviews() {
 }
 
 export function Specs() {
+  const { t } = useLang();
+
   const specs = [
     { group: 'Materials', items: [
       ['Primary material', 'Grade-A Mongolian Cashmere / Swiss Movement'],
-      ['Finish', 'Brushed & polished'],
-      ['Hardware', '18k Gold / Antique Brass'],
+      ['Finish',           'Brushed & polished'],
+      ['Hardware',         '18k Gold / Antique Brass'],
     ]},
     { group: 'Dimensions', items: [
-      ['Weight', '420g'],
-      ['Dimensions', '32 × 28 × 8 cm'],
-      ['Available sizes', 'XS, S, M, L, XL'],
+      ['Weight',           '420g'],
+      ['Dimensions',       '32 × 28 × 8 cm'],
+      ['Available sizes',  'XS, S, M, L, XL'],
     ]},
     { group: 'Care & Compliance', items: [
-      ['Care instructions', 'Dry clean only'],
-      ['Warranty', '2 years international'],
-      ['Certification', 'ISO 9001 · CE Marked'],
+      ['Care instructions','Dry clean only'],
+      ['Warranty',         '2 years international'],
+      ['Certification',    'ISO 9001 · CE Marked'],
     ]},
   ];
 
@@ -78,7 +88,7 @@ export function Specs() {
       ))}
       <div className="specs-note">
         <span>ℹ️</span>
-        <span>Specifications may vary slightly by variant. Contact us for precise measurements before ordering.</span>
+        <span>{t.products.specsNote}</span>
       </div>
     </div>
   );

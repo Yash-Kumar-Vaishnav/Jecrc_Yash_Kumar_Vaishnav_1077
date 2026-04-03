@@ -104,3 +104,27 @@
 }
 .toggle-btn.active { background: var(--ink); }
 .toggle-btn.active::after { transform: translateX(18px); }
+
+/* Language tile grid (Settings page) */
+.lang-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.lang-tile {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; border-radius: 10px;
+  border: 1.5px solid var(--border); background: var(--cream);
+  font-size: 14px; color: var(--ink); cursor: pointer;
+  transition: all 0.15s; text-align: left; position: relative;
+}
+.lang-tile:hover { border-color: var(--gold); background: #fdf8ef; }
+.lang-tile.active { border-color: var(--gold-dark); background: #fdf3e0; font-weight: 500; }
+.lang-tile-flag { font-size: 20px; flex-shrink: 0; }
+.lang-tile-name { flex: 1; }
+.lang-tile-rtl {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.06em;
+  background: var(--warm); color: var(--muted);
+  padding: 2px 5px; border-radius: 4px; border: 1px solid var(--border);
+}
+.lang-tile-check { color: var(--gold-dark); font-size: 14px; font-weight: 700; }

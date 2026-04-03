@@ -68,3 +68,8 @@
   background: var(--cream);
 }
 .auth-panel-inner { width: 100%; }
+
+.auth-panel-top {
+  position: absolute; top: 20px; right: 24px;
+}
+.auth-panel { position: relative; }

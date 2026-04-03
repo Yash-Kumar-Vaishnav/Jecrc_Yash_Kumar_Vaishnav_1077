@@ -1,0 +1,56 @@
+.lang-switcher { position: relative; }
+
+.lang-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: #fff; color: var(--ink);
+  font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.15s;
+  white-space: nowrap;
+}
+.lang-btn:hover { border-color: var(--gold); background: var(--warm); }
+
+.lang-flag { font-size: 16px; line-height: 1; }
+.lang-code { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; }
+
+.lang-dropdown {
+  position: absolute; top: calc(100% + 6px); right: 0;
+  background: #fff; border: 1px solid var(--border);
+  border-radius: 10px; box-shadow: var(--shadow-lg);
+  min-width: 160px; z-index: 200; overflow: hidden;
+  animation: fadeUp 0.15s ease;
+}
+
+.lang-option {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 10px 14px;
+  background: none; border: none;
+  font-size: 14px; color: var(--ink);
+  cursor: pointer; transition: background 0.1s;
+  text-align: left;
+}
+.lang-option:hover { background: var(--warm); }
+.lang-option.active { background: #fdf8ef; font-weight: 500; }
+.lang-name { flex: 1; }
+.lang-check { color: var(--gold-dark); font-size: 13px; }
+
+/* Dark variant (for dashboard sidebar) */
+.lang-switcher.dark .lang-btn {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.8);
+}
+.lang-switcher.dark .lang-btn:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.2);
+}
+.lang-switcher.dark .lang-dropdown {
+  background: #2a2826; border-color: rgba(255,255,255,0.12);
+}
+.lang-switcher.dark .lang-option { color: rgba(255,255,255,0.8); }
+.lang-switcher.dark .lang-option:hover { background: rgba(255,255,255,0.07); }
+.lang-switcher.dark .lang-option.active { background: rgba(200,169,110,0.15); }
+
+/* RTL flip */
+[dir="rtl"] .lang-dropdown { right: auto; left: 0; }

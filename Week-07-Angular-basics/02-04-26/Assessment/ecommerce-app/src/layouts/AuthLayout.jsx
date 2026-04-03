@@ -1,4 +1,5 @@
 import { Outlet, Link } from 'react-router-dom';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import './AuthLayout.css';
 
 function AuthLayout() {
@@ -6,10 +7,12 @@ function AuthLayout() {
     <div className="auth-layout">
       <div className="auth-brand">
         <div className="auth-brand-inner">
-          <Link to="/" className="auth-logo">
-            <span className="auth-logo-mark">S</span>
-            <span className="auth-logo-text">ShopElite</span>
-          </Link>
+          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+            <Link to="/" className="auth-logo">
+              <span className="auth-logo-mark">S</span>
+              <span className="auth-logo-text">ShopElite</span>
+            </Link>
+          </div>
           <div className="auth-brand-copy">
             <h2>The world's finest<br />marketplace.</h2>
             <p>Curated luxury, delivered to your door. Join over 500,000 discerning shoppers worldwide.</p>
@@ -23,6 +26,9 @@ function AuthLayout() {
         </div>
       </div>
       <div className="auth-panel">
+        <div className="auth-panel-top">
+          <LanguageSwitcher />
+        </div>
         <div className="auth-panel-inner">
           <Outlet />
         </div>

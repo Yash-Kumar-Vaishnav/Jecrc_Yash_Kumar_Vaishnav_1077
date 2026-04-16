@@ -1,0 +1,6 @@
+@ClockSystemApi_HostAddress = http://localhost:5289
+
+GET {{ClockSystemApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

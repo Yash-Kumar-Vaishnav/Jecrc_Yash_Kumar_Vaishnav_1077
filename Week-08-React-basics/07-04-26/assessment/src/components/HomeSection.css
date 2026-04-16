@@ -1,0 +1,254 @@
+.home-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.welcome-card {
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: white;
+  padding: 32px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-lg);
+}
+
+.welcome-content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.welcome-content p {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.welcome-time {
+  text-align: right;
+}
+
+.welcome-time p {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.stat-card {
+  background: var(--bg-primary);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: white;
+}
+
+.stat-icon.employees {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.stat-icon.departments {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.stat-icon.salary {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.stat-icon.highest {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.stat-content h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.stat-change {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.recent-employees {
+  background: var(--bg-primary);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.recent-employees h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.employee-list-small {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.employee-item-small {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.employee-item-small:hover {
+  background: var(--bg-tertiary);
+}
+
+.emp-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.emp-info-small {
+  flex: 1;
+  min-width: 0;
+}
+
+.emp-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.emp-dept {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.emp-position {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.info-card {
+  background: var(--bg-primary);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.info-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.info-card ul {
+  list-style: none;
+}
+
+.info-card li {
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.info-card li:last-child {
+  border-bottom: none;
+}
+
+.info-card li::before {
+  content: "→ ";
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.role-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.role-info p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+}
+
+.role-info strong {
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .welcome-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .welcome-time {
+    text-align: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}

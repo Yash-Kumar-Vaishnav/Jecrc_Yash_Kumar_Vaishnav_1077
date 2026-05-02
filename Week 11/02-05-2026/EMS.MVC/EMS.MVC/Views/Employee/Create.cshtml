@@ -1,0 +1,22 @@
+﻿@model EMS.MVC.Models.Employee
+
+<h2>Create Employee</h2>
+
+<form method="post">
+    <div>
+        <label>Name</label>
+        <input asp-for="Name" />
+    </div>
+
+    <div>
+        <label>Role</label>
+        <input asp-for="Role" />
+    </div>
+
+    <br />
+
+    <button type="submit">Save</button>
+</form>
+
+<br />
+<a href="/Employee">Back to List</a>

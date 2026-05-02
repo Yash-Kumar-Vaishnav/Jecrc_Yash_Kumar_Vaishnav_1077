@@ -1,0 +1,27 @@
+﻿@model List<EMS.MVC.Models.Employee>
+
+<h2>Employees</h2>
+
+<a href="/Employee/Create">Add New</a>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Role</td>
+            <td>
+                <a href="/Employee/Edit/@item.Id">Edit</a> |
+                <a href="/Employee/Delete/@item.Id" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,24 @@
+﻿@model EMS.MVC.Models.Employee
+
+<h2>Edit Employee</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label>Name</label>
+        <input asp-for="Name" />
+    </div>
+
+    <div>
+        <label>Role</label>
+        <input asp-for="Role" />
+    </div>
+
+    <br />
+
+    <button type="submit">Update</button>
+</form>
+
+<br />
+<a href="/Employee">Back to List</a>

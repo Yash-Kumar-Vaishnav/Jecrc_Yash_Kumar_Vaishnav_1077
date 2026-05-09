@@ -1,0 +1,35 @@
+@model OnlineFoodOrderingSystem.Models.FoodItem
+
+<div class="container mt-5">
+    <h1>Edit Food</h1>
+
+    <form asp-action="EditFood" method="post">
+
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label>Food Name</label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Price</label>
+            <input asp-for="Price" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Image URL</label>
+            <input asp-for="ImageUrl" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Update
+        </button>
+
+    </form>
+</div>

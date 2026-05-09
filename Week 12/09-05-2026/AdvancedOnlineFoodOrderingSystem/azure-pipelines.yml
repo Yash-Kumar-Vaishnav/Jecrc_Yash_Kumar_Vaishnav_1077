@@ -1,0 +1,15 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    version: '8.x'
+    packageType: sdk
+
+- script: dotnet restore
+- script: dotnet build
+- script: dotnet test
